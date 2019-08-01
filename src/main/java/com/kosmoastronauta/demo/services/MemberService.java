@@ -33,10 +33,10 @@ public class MemberService
         return members;
     }
 
-    public Member getMemberById(int id) { return memberRepository.findById(id).get(); }
+    public Member getMemberById(long id) { return memberRepository.findById(id).get(); }
 
     public void addMember(Member member){ memberRepository.save(member);}
 
-    public void deleteMemberById(int id) { memberRepository.deleteById(id); }
+    public void deleteMemberById(long id) { memberRepository.deleteById(id); }
 
 }

@@ -37,6 +37,7 @@ public class BookController
     @PostMapping(path = "/books")
     public Book addBook(@RequestBody Book book)
     {
+        book.setFree(true);
         bookService.addBook(book);
         return book;
     }
