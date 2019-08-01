@@ -39,5 +39,4 @@ public class MemberService
 
     public void deleteMemberById(int id) { memberRepository.deleteById(id); }
 
-
 }

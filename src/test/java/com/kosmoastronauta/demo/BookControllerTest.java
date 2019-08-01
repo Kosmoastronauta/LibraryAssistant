@@ -31,12 +31,6 @@ public class BookControllerTest
     }
 
     @Test
-    public void getBookByIdCodeOk()
-    {
-        given().when().get(WEB + "/book/2").then().statusCode(200);
-    }
-
-    @Test
     public void addingCheckingIfExistsAndRemovingBook()
     {
         try

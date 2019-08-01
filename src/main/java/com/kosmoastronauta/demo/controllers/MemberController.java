@@ -36,6 +36,7 @@ public class MemberController
     @PostMapping(path = "/members")
     public Member addMember(@RequestBody Member member)
     {
+        member.setNumberOfCurrentlyBorrowedBooks(0);
         memberService.addMember(member);
         return member;
     }
