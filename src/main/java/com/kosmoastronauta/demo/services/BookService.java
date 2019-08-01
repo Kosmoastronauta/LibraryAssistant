@@ -38,12 +38,12 @@ public class BookService
         return books;
     }
 
-    public Book getBookById(int id)
+    public Book getBookById(long id)
     {
         return bookRepository.findById(id).get();
     }
 
-    public void deleteBookById(int id)
+    public void deleteBookById(long id)
     {
         bookRepository.deleteById(id);
     }

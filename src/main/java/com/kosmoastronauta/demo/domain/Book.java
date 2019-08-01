@@ -6,30 +6,31 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 @Entity
-//@EntityListeners(AuditingEntityListener.class)
-//@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
-//        allowGetters = true)
 
 public class Book
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
     public Book(String title, String author, String edition)
     {
         this.title = title;
         this.author = author;
         this.edition = edition;
+        this.free = true;
     }
 
-    public Book()
-    {
-    }
+    public Book() {}
 
     private String title;
     private String author;
     private String edition;
+    private boolean free; // true - free, false - borrowed
+
+    public boolean isFree() { return free; }
+
+    public void setFree(boolean free) { this.free = free; }
 
     public String getAuthor()
     {
@@ -51,12 +52,12 @@ public class Book
         this.edition = edition;
     }
 
-    public int getId()
+    public long getId()
     {
         return id;
     }
 
-    public void setId(int id)
+    public void setId(long id)
     {
         this.id = id;
     }

@@ -1,12 +1,9 @@
 package com.kosmoastronauta.demo.services;
 
-import com.google.common.collect.Lists;
-import com.kosmoastronauta.demo.domain.Book;
 import com.kosmoastronauta.demo.domain.Member;
 import com.kosmoastronauta.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +30,10 @@ public class MemberService
         return members;
     }
 
-    public Member getMemberById(int id) { return memberRepository.findById(id).get(); }
+    public Member getMemberById(long id) { return memberRepository.findById(id).get(); }
 
-    public void deleteMemberById(int id) { memberRepository.deleteById(id); }
+    public void addMember(Member member){ memberRepository.save(member);}
 
+    public void deleteMemberById(long id) { memberRepository.deleteById(id); }
 
 }

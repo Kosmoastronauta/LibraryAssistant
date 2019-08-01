@@ -1,24 +1,14 @@
 package com.kosmoastronauta.demo;
 
 import com.kosmoastronauta.demo.domain.Book;
-import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Test;
-
-import static io.restassured.RestAssured.expect;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static io.restassured.path.xml.XmlPath.given;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertTrue;
-
 import org.json.JSONObject;
-import org.junit.Test;
+import javax.transaction.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
-
+@Transactional
 public class BookControllerTest
 {
 
@@ -27,13 +17,7 @@ public class BookControllerTest
     @Test
     public void GetBooksResponseCodeOk()
     {
-        given().when().get(WEB + "/books").then().statusCode(200);
-    }
-
-    @Test
-    public void getBookByIdCodeOk()
-    {
-        given().when().get(WEB + "/book/2").then().statusCode(200);
+        given().when().get(WEB + "/books").then().statusCode(HttpStatus.SC_OK);
     }
 
     @Test
@@ -46,13 +30,13 @@ public class BookControllerTest
             request.put("author", "Temp author");
             request.put("edition", "first");
 
-            int bookId =
-                    given().contentType("application/json").body(request.toString()).when().post(WEB + "/books").then().statusCode(200).extract().path("id");
-            System.out.println(bookId);
+            Book book = given().contentType("application/json").body(request.toString()).when().post(WEB + "/books").then().statusCode(HttpStatus.SC_OK).extract().as(Book.class);
 
-            given().when().get(WEB + "/book/" + bookId).then().statusCode(200);
-            given().when().delete(WEB + "/book/" + bookId).then().statusCode(200);
+            given().when().get(WEB + "/book/" + book.getId()).then().statusCode(HttpStatus.SC_OK);
+            given().when().delete(WEB + "/book/" + book.getId()).then().statusCode(HttpStatus.SC_OK);
+            Assert.assertTrue(book.isFree());
+
         } catch(Exception e) {}
-
     }
+
 }
