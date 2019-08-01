@@ -10,8 +10,58 @@ public class Reservation
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    long bookId;
-    long memberId;
-    LocalDateTime start;
-    LocalDateTime end;
+    private long bookId;
+    private long memberId;
+    private LocalDateTime start;
+    private LocalDateTime end;
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
+    }
+
+    public long getBookId()
+    {
+        return bookId;
+    }
+
+    public void setBookId(long bookId)
+    {
+        this.bookId = bookId;
+    }
+
+    public long getMemberId()
+    {
+        return memberId;
+    }
+
+    public void setMemberId(long memberId)
+    {
+        this.memberId = memberId;
+    }
+
+    public LocalDateTime getStart()
+    {
+        return start;
+    }
+
+    public void setStart(LocalDateTime start)
+    {
+        this.start = start;
+    }
+
+    public LocalDateTime getEnd()
+    {
+        return end;
+    }
+
+    public void setEnd(LocalDateTime end)
+    {
+        this.end = end;
+    }
 }
