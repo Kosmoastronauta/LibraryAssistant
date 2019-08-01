@@ -1,15 +1,11 @@
 package com.kosmoastronauta.demo;
 
-
 import com.kosmoastronauta.demo.domain.Book;
 import org.apache.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Test;
-
-import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import org.json.JSONObject;
-
 import javax.transaction.Transactional;
 
 @Transactional
@@ -34,18 +30,13 @@ public class BookControllerTest
             request.put("author", "Temp author");
             request.put("edition", "first");
 
-            Book book = given().contentType("application/json")
-                    .body(request.toString())
-                    .when().post(WEB + "/books")
-                    .then().statusCode(HttpStatus.SC_OK)
-                    .extract().as(Book.class);
+            Book book = given().contentType("application/json").body(request.toString()).when().post(WEB + "/books").then().statusCode(HttpStatus.SC_OK).extract().as(Book.class);
 
             given().when().get(WEB + "/book/" + book.getId()).then().statusCode(HttpStatus.SC_OK);
             given().when().delete(WEB + "/book/" + book.getId()).then().statusCode(HttpStatus.SC_OK);
             Assert.assertTrue(book.isFree());
 
         } catch(Exception e) {}
-
     }
 
 }

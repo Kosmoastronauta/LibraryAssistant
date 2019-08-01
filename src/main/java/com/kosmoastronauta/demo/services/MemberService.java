@@ -1,12 +1,9 @@
 package com.kosmoastronauta.demo.services;
 
-import com.google.common.collect.Lists;
-import com.kosmoastronauta.demo.domain.Book;
 import com.kosmoastronauta.demo.domain.Member;
 import com.kosmoastronauta.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 

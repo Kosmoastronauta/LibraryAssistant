@@ -4,7 +4,6 @@ import com.kosmoastronauta.demo.domain.Member;
 import com.kosmoastronauta.demo.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
