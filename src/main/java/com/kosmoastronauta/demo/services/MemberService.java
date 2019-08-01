@@ -35,6 +35,8 @@ public class MemberService
 
     public Member getMemberById(int id) { return memberRepository.findById(id).get(); }
 
+    public void addMember(Member member){ memberRepository.save(member);}
+
     public void deleteMemberById(int id) { memberRepository.deleteById(id); }
 
 
