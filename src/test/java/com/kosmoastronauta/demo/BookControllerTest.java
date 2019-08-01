@@ -10,7 +10,9 @@ import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 import org.json.JSONObject;
 
+import javax.transaction.Transactional;
 
+@Transactional
 public class BookControllerTest
 {
 

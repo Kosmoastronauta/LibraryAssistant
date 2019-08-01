@@ -6,8 +6,10 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.given;
+import javax.transaction.Transactional;
 
+import static io.restassured.RestAssured.given;
+@Transactional
 public class MemberControllerTest
 {
     public static final String WEB = "http://localhost:8181";
