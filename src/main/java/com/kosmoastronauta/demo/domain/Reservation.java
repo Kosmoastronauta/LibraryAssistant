@@ -15,6 +15,14 @@ public class Reservation
     private LocalDateTime start;
     private LocalDateTime end;
 
+    public Reservation(Book book, Member member)
+    {
+        this.bookId = book.getId();
+        this.memberId = member.getId();
+        this.start = LocalDateTime.now();
+        end = start.plusMonths(1);
+    }
+
     public long getId()
     {
         return id;
