@@ -21,6 +21,12 @@ public class ReservationService
     @Autowired
     ReservationRepository reservationRepository;
 
+    @Autowired
+    BookService bookService;
+
+    @Autowired
+    MemberService memberService;
+
     public List<Reservation> getAllReservations()
     {
         List<Reservation> reservations = new ArrayList<>();
@@ -63,6 +69,8 @@ public class ReservationService
 
     public ReservationFullInfo getFullInfoAboutReservation(Book book, Member member)
     {
+        book = bookService.getBookById(book.getId()); // To fill all information about book
+        member = memberService.getMemberById(member.getId()); // same as above
         ReservationFullInfo reservationFullInfo = new ReservationFullInfo(book, member);
         Reservation reservation = this.getReservationByBookId(book.getId()); //because relation between Reservation
         // and Book is "One to One"
