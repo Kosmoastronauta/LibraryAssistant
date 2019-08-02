@@ -3,10 +3,15 @@ package com.kosmoastronauta.demo.services;
 import com.kosmoastronauta.demo.domain.Book;
 import com.kosmoastronauta.demo.domain.Member;
 import com.kosmoastronauta.demo.domain.Reservation;
+import com.kosmoastronauta.demo.domain.ReservationFullInfo;
+import com.kosmoastronauta.demo.repository.BookRepository;
+import com.kosmoastronauta.demo.repository.MemberRepository;
 import com.kosmoastronauta.demo.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Null;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +35,14 @@ public class ReservationService
         return reservations;
     }
 
-    public List<Reservation> getReservationByBookId(long BookId)
+    public Reservation getReservationByBookId(long BookId) throws NullPointerException
     {
         List<Reservation> reservations = new ArrayList<>();
         reservationRepository.getReservationByBookId(BookId).forEach(reservations::add);
-        return reservations;
+
+        if(reservations.isEmpty()) throw new NullPointerException();
+
+        else return reservations.get(0);
     }
 
     public Reservation getReservationById(long id)
@@ -50,7 +58,18 @@ public class ReservationService
 
     public void deleteReservation(Book book, Member member)
     {
-        reservationRepository.deleteReservation(book.getId(),member.getId());
+        reservationRepository.deleteReservation(book.getId(), member.getId());
     }
 
+    public ReservationFullInfo getFullInfoAboutReservation(Book book, Member member)
+    {
+        ReservationFullInfo reservationFullInfo = new ReservationFullInfo(book, member);
+        Reservation reservation = this.getReservationByBookId(book.getId()); //because relation between Reservation
+        // and Book is "One to One"
+
+        reservationFullInfo.setStart(reservation.getStart());
+        reservationFullInfo.setEnd(reservation.getEnd());
+
+        return reservationFullInfo;
+    }
 }
