@@ -14,11 +14,10 @@ public class ReservationControllerTest
     public static final String WEB = "http://localhost:8181";
 
     @Test
-    public void makingReservationTest()
+    public void makingReservationAndReturning()
     {
-        given().when().put(WEB + "/reservations/makeReservation/2/16").then().statusCode(HttpStatus.SC_OK);
-        Reservation reservation = given().contentType("/application/json").when().post(WEB + "/reservations" +
-                "/makeReservation").then().statusCode(HttpStatus.SC_OK).extract().as(Reservation.class);
-        given().when().put(WEB + "/reservation/return/" + reservation.getId()).then().statusCode(HttpStatus.SC_OK);
+        Reservation reservation = given().contentType("/application/json").when().put(WEB + "/reservations" +
+                "/makeReservation/2/16").then().statusCode(HttpStatus.SC_OK).extract().as(Reservation.class);
+        given().when().post(WEB + "/reservation/return/byId/" + reservation.getId()).then().statusCode(HttpStatus.SC_OK);
     }
 }

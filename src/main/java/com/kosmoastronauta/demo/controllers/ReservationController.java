@@ -1,6 +1,5 @@
 package com.kosmoastronauta.demo.controllers;
 
-import com.kosmoastronauta.demo.domain.Book;
 import com.kosmoastronauta.demo.domain.Reservation;
 import com.kosmoastronauta.demo.domain.ReservationFullInfo;
 import com.kosmoastronauta.demo.services.BookService;
@@ -8,7 +7,6 @@ import com.kosmoastronauta.demo.services.MemberService;
 import com.kosmoastronauta.demo.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

@@ -14,7 +14,7 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
 
     public List<Reservation> getReservationsByMemberId(long memberId);
 
-    @Query(value = "SELECT reservation.returned FROM reservation WHERE Reservation.book_Id =:reservationId",
+    @Query(value = "SELECT reservation.returned FROM reservation WHERE reservation.id =:reservationId",
             nativeQuery = true)
     public boolean getReturnedStatusByReservationId(@Param("reservationId") long reservationId);
 

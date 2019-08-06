@@ -69,18 +69,14 @@ public class ReservationService
         }
     }
 
-
     public ReservationFullInfo getFullInfoAboutReservation(long reservationId)
     {
-        long bookId = reservationRepository.getBookIdByReservationId(reservationId);
-        long memberId = reservationRepository.getMemberIdByReservationId(reservationId);
-
-        Book book = bookService.getBookById(bookId); // To fill all information about book
-        Member member = memberService.getMemberById(memberId); // same as above
+        Reservation reservation = this.getReservationById(reservationId);
+        Book book = bookService.getBookById(reservation.getBookId()); // To fill all information about book
+        Member member = memberService.getMemberById(reservation.getMemberId()); // same as above
         boolean returnedStatus = reservationRepository.getReturnedStatusByReservationId(reservationId);
 
         ReservationFullInfo reservationFullInfo = new ReservationFullInfo(book, member, returnedStatus);
-        Reservation reservation = this.getReservationById(book.getId());
 
         reservationFullInfo.setStart(reservation.getStart());
         reservationFullInfo.setEnd(reservation.getEnd());
@@ -98,5 +94,4 @@ public class ReservationService
         reservation.setReturned(true);
         reservationRepository.save(reservation);
     }
-
 }
