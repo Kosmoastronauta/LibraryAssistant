@@ -16,7 +16,7 @@ public class MemberController
     public List<Member> getMembers() { return memberService.getAllMembers(); }
 
     @GetMapping(path = "/member/{id}")
-    public Member getMemberById(@PathVariable int id)
+    public Member getMemberById(@PathVariable long id)
     {
         Member member = new Member();
 
@@ -38,7 +38,7 @@ public class MemberController
         return member;
     }
 
-    @DeleteMapping(path = "member/{id}")
+    @DeleteMapping(path = "/member/{id}")
     public void deleteMember(@PathVariable int id) {memberService.deleteMemberById(id);}
 
 }
