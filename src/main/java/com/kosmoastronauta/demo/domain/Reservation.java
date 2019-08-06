@@ -14,6 +14,7 @@ public class Reservation
     private long memberId;
     private LocalDateTime start;
     private LocalDateTime end;
+    private boolean returned;
 
     public Reservation() {}
 
@@ -23,6 +24,7 @@ public class Reservation
         this.memberId = member.getId();
         this.start = LocalDateTime.now();
         end = start.plusMonths(1);
+        returned = false;
     }
 
     public long getId()
@@ -74,4 +76,8 @@ public class Reservation
     {
         this.end = end;
     }
+
+    public boolean isReturned() { return returned; }
+
+    public void setReturned(boolean returned) { this.returned = returned; }
 }

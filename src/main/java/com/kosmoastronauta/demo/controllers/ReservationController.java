@@ -64,4 +64,9 @@ public class ReservationController
     }
 
 
+    @PostMapping(path = "/reservation/return/{id}")
+    public void returnBook(@PathVariable long id)
+    {
+
+    }
 }
