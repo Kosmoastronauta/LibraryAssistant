@@ -35,13 +35,13 @@ public class ReservationController
         return reservationService.getReservationById(id);
     }
 
-    @GetMapping(path = "/reservation/{bookId}/{memberId}")
-    public ReservationFullInfo getFullInfoAboutReservation(@PathVariable("bookId") long bookId, @PathVariable("memberId") long memberId)
+    @GetMapping(path = "/reservation/fullInfo/{id}")
+    public ReservationFullInfo getFullInfoAboutReservation(@PathVariable("id") long id)
     {
-        return reservationService.getFullInfoAboutReservation(bookId, memberId);
+        return reservationService.getFullInfoAboutReservation(id);
     }
 
-    @PutMapping(path = "/reservations/{bookId}/{memberId}")
+    @PutMapping(path = "/reservations/makeReservation/{bookId}/{memberId}")
     public Reservation makeReservation(@PathVariable("bookId") long bookId, @PathVariable("memberId") long memberId)
     {
         Reservation reservation = new Reservation();
@@ -63,10 +63,9 @@ public class ReservationController
         reservationService.deleteReservationById(id);
     }
 
-
-    @PostMapping(path = "/reservation/return/{id}")
-    public void returnBook(@PathVariable long id)
+    @PostMapping(path = "/reservation/return/byId/{reservationId}")
+    public void returnBook(@PathVariable long reservationId)
     {
-
+        reservationService.returnBook(reservationId);
     }
 }

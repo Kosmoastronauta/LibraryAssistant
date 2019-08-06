@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 @RunWith(Suite.class)
 @Transactional
 @Suite.SuiteClasses({MemberControllerTest.class,
-BookControllerTest.class})
+                    BookControllerTest.class,
+                    ReservationControllerTest.class})
 public class TestSuiteAll
 {}

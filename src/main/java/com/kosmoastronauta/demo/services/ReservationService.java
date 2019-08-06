@@ -38,17 +38,16 @@ public class ReservationService
     {
         List<Reservation> reservations = new ArrayList<>();
         reservationRepository.getReservationsByMemberId(memberId).forEach(reservations::add);
+
         return reservations;
     }
 
-    public Reservation getReservationByBookId(long BookId) throws NullPointerException
+    public List<Reservation> getReservationByBookId(long BookId) throws NullPointerException
     {
         List<Reservation> reservations = new ArrayList<>();
         reservationRepository.getReservationByBookId(BookId).forEach(reservations::add);
 
-        if(reservations.isEmpty()) throw new NullPointerException();
-
-        else return reservations.get(0);
+        return reservations;
     }
 
     public Reservation getReservationById(long id)
@@ -58,7 +57,7 @@ public class ReservationService
 
     public Reservation addReservation(Book book, Member member)
     {
-        if(!book.isFree()) throw new ExceptionInInitializerError("This book is already reserved !!!");
+        if(!book.isFree()) { throw new ExceptionInInitializerError("This book is already reserved !!!"); }
 
         else
         {
@@ -80,17 +79,33 @@ public class ReservationService
         reservationRepository.deleteReservation(book.getId(), member.getId());
     }
 
-    public ReservationFullInfo getFullInfoAboutReservation(long bookId, long memberId)
+    public ReservationFullInfo getFullInfoAboutReservation(long reservationId)
     {
+        long bookId = reservationRepository.getBookIdByReservationId(reservationId);
+        long memberId = reservationRepository.getMemberIdByReservationId(reservationId);
+
         Book book = bookService.getBookById(bookId); // To fill all information about book
         Member member = memberService.getMemberById(memberId); // same as above
-        ReservationFullInfo reservationFullInfo = new ReservationFullInfo(book, member);
-        Reservation reservation = this.getReservationByBookId(book.getId()); //because relation between Reservation
-        // and Book is "One to One"
+        boolean returnedStatus = reservationRepository.getReturnedStatusByReservationId(reservationId);
+
+        ReservationFullInfo reservationFullInfo = new ReservationFullInfo(book, member, returnedStatus);
+        Reservation reservation = this.getReservationById(book.getId());
 
         reservationFullInfo.setStart(reservation.getStart());
         reservationFullInfo.setEnd(reservation.getEnd());
 
         return reservationFullInfo;
     }
+
+    public void returnBook(long reservationId)
+    {
+        long bookId = reservationRepository.getBookIdByReservationId(reservationId);
+        Book book = bookService.getBookById(bookId);
+        book.setFree(true);
+        bookService.addBook(book);
+        Reservation reservation = reservationRepository.findById(reservationId).get();
+        reservation.setReturned(true);
+        reservationRepository.save(reservation);
+    }
+
 }

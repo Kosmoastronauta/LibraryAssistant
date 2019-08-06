@@ -9,11 +9,13 @@ public class ReservationFullInfo
     private Member member;
     private LocalDateTime start;
     private LocalDateTime end;
+    private boolean returned;
 
-    public ReservationFullInfo(Book book, Member member)
+    public ReservationFullInfo(Book book, Member member, boolean returned)
     {
         this.book = book;
         this.member = member;
+        this.returned = returned;
     }
 
     public LocalDateTime getStart()
@@ -64,5 +66,15 @@ public class ReservationFullInfo
     public void setMember(Member member)
     {
         this.member = member;
+    }
+
+    public boolean isReturned()
+    {
+        return returned;
+    }
+
+    public void setReturned(boolean returned)
+    {
+        this.returned = returned;
     }
 }
