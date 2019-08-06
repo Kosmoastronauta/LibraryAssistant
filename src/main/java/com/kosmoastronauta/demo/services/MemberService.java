@@ -27,6 +27,7 @@ public class MemberService
     {
         List<Member> members = new ArrayList<>();
         memberRepository.findAll().forEach(members::add);
+
         return members;
     }
 

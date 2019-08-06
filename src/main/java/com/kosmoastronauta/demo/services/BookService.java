@@ -35,6 +35,7 @@ public class BookService
     {
         List<Book> books = new ArrayList<>();
         bookRepository.findAll().forEach(books::add);
+
         return books;
     }
 

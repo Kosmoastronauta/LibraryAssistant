@@ -3,9 +3,12 @@ package com.kosmoastronauta.demo;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-@RunWith(Suite.class)
+import javax.transaction.Transactional;
 
+@RunWith(Suite.class)
+@Transactional
 @Suite.SuiteClasses({MemberControllerTest.class,
-BookControllerTest.class})
+                    BookControllerTest.class,
+                    ReservationControllerTest.class})
 public class TestSuiteAll
 {}
