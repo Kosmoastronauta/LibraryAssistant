@@ -57,12 +57,6 @@ public class ReservationController
         return reservation;
     }
 
-    @DeleteMapping(path = "/reservation/{id}")
-    public void deleteReservationById(@PathVariable long id)
-    {
-        reservationService.deleteReservationById(id);
-    }
-
     @PostMapping(path = "/reservation/return/byId/{reservationId}")
     public void returnBook(@PathVariable long reservationId)
     {

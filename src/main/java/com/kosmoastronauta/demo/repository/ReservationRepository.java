@@ -25,5 +25,4 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     @Query(value = "SELECT reservation.member_Id FROM reservation WHERE reservation.id =:memberId", nativeQuery = true)
     public long getMemberIdByReservationId(@Param("memberId") long memberId);
 
-
 }

@@ -69,15 +69,6 @@ public class ReservationService
         }
     }
 
-    public void deleteReservationById(long id)
-    {
-        reservationRepository.deleteById(id);
-    }
-
-    public void deleteReservation(Book book, Member member)
-    {
-        reservationRepository.deleteReservation(book.getId(), member.getId());
-    }
 
     public ReservationFullInfo getFullInfoAboutReservation(long reservationId)
     {
