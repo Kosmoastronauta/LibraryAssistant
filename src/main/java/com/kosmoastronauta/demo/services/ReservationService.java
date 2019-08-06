@@ -58,10 +58,21 @@ public class ReservationService
 
     public Reservation addReservation(Book book, Member member)
     {
-        Reservation reservation = new Reservation(book, member);
-        reservationRepository.save(reservation);
+        if(!book.isFree()) throw new ExceptionInInitializerError("This book is already reserved !!!");
 
-        return reservation;
+        else
+        {
+            book.setFree(false);
+            Reservation reservation = new Reservation(book, member);
+            reservationRepository.save(reservation);
+
+            return reservation;
+        }
+    }
+
+    public void deleteReservationById(long id)
+    {
+        reservationRepository.deleteById(id);
     }
 
     public void deleteReservation(Book book, Member member)

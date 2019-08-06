@@ -15,6 +15,8 @@ public class Reservation
     private LocalDateTime start;
     private LocalDateTime end;
 
+    public Reservation() {}
+
     public Reservation(Book book, Member member)
     {
         this.bookId = book.getId();
