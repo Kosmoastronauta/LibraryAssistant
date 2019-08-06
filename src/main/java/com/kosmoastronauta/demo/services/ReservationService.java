@@ -31,6 +31,7 @@ public class ReservationService
     {
         List<Reservation> reservations = new ArrayList<>();
         reservationRepository.findAll().forEach(reservations::add);
+
         return reservations;
     }
 
@@ -45,7 +46,7 @@ public class ReservationService
     public List<Reservation> getReservationByBookId(long BookId) throws NullPointerException
     {
         List<Reservation> reservations = new ArrayList<>();
-        reservationRepository.getReservationByBookId(BookId).forEach(reservations::add);
+        reservationRepository.getReservationsByBookId(BookId).forEach(reservations::add);
 
         return reservations;
     }

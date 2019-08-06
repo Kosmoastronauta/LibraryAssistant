@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface ReservationRepository extends CrudRepository<Reservation, Long>
 {
-    public List<Reservation> getReservationByBookId(long id);
+    public List<Reservation> getReservationsByBookId(long id);
 
     public List<Reservation> getReservationsByMemberId(long memberId);
 

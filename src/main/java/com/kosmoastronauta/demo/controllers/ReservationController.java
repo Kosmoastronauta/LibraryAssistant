@@ -6,6 +6,8 @@ import com.kosmoastronauta.demo.services.BookService;
 import com.kosmoastronauta.demo.services.MemberService;
 import com.kosmoastronauta.demo.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -21,26 +23,41 @@ public class ReservationController
     @Autowired
     ReservationService reservationService;
 
-    @GetMapping(path = "/reservations")
-    public List<Reservation> getReservations()
+    @GetMapping(path = "/reservations/")
+    public ResponseEntity<List<Reservation>> getReservations()
     {
-        return reservationService.getAllReservations();
+        List<Reservation> reservations = reservationService.getAllReservations();
+
+        if(!reservations.isEmpty())
+        return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(path = "/reservation/{id}")
-    public Reservation getReservationById(@PathVariable long id)
+    @GetMapping(path = "/reservation/{id}/")
+    public ResponseEntity<Reservation> getReservationById(@PathVariable long id)
     {
-        return reservationService.getReservationById(id);
+        Reservation reservation = reservationService.getReservationById(id);
+        if(reservation!=null) return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(path = "/reservation/fullInfo/{id}")
-    public ReservationFullInfo getFullInfoAboutReservation(@PathVariable("id") long id)
+    @GetMapping(path = "/reservation/fullInfo/{id}/")
+    public ResponseEntity<ReservationFullInfo> getFullInfoAboutReservation(@PathVariable("id") long id)
     {
-        return reservationService.getFullInfoAboutReservation(id);
+        ReservationFullInfo reservationFullInfo = reservationService.getFullInfoAboutReservation(id);
+
+        if(reservationFullInfo != null)
+        { return new ResponseEntity<ReservationFullInfo>(reservationFullInfo, HttpStatus.OK); }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
     }
 
-    @PutMapping(path = "/reservations/makeReservation/{bookId}/{memberId}")
-    public Reservation makeReservation(@PathVariable("bookId") long bookId, @PathVariable("memberId") long memberId)
+    @PutMapping(path = "/reservations/makeReservation/{bookId}/{memberId}/")
+    public ResponseEntity<Reservation> makeReservation(@PathVariable("bookId") long bookId,
+                                                      @PathVariable("memberId") long memberId)
     {
         Reservation reservation = new Reservation();
         try
@@ -49,13 +66,12 @@ public class ReservationController
                 memberService.getMemberById(memberId));
         }catch(ExceptionInInitializerError e)
         {
-            System.out.println("This book is already reserved");
-            throw new ExceptionInInitializerError("This book is already reserved");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return reservation;
+        return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/reservation/return/byId/{reservationId}")
+    @PostMapping(path = "/reservation/return/byId/{reservationId}/")
     public void returnBook(@PathVariable long reservationId)
     {
         reservationService.returnBook(reservationId);
