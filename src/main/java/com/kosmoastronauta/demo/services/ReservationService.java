@@ -56,10 +56,12 @@ public class ReservationService
         return reservationRepository.findById(id).get();
     }
 
-    public void addReservation(Book book, Member member)
+    public Reservation addReservation(Book book, Member member)
     {
         Reservation reservation = new Reservation(book, member);
         reservationRepository.save(reservation);
+
+        return reservation;
     }
 
     public void deleteReservation(Book book, Member member)
