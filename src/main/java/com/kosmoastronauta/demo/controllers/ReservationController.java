@@ -68,6 +68,7 @@ public class ReservationController
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
         return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
     }
 

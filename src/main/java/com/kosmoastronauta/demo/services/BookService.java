@@ -39,6 +39,11 @@ public class BookService
         return books;
     }
 
+    public List<Book> getAvaliableBooksByTitle(Book book)
+    {
+        return bookRepository.getBooksByFreeIsTrueAndTitleEquals(book.getTitle());
+    }
+
     public Book getBookById(long id)
     {
         return bookRepository.findById(id).get();
