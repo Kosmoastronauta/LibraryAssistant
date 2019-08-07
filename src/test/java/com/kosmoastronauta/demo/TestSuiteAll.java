@@ -9,6 +9,7 @@ import javax.transaction.Transactional;
 @Transactional
 @Suite.SuiteClasses({MemberControllerTest.class,
                     BookControllerTest.class,
-                    ReservationControllerTest.class})
+                    ReservationControllerTest.class,
+                    BookStatusControllerTest.class})
 public class TestSuiteAll
 {}

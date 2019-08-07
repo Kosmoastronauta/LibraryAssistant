@@ -30,7 +30,11 @@ public class BookControllerTest
             request.put("author", "Temp author");
             request.put("edition", "first");
 
-            Book book = given().contentType("application/json").body(request.toString()).when().post(WEB + "/books/").then().statusCode(HttpStatus.SC_OK).extract().as(Book.class);
+            Book book = given().contentType("application/json")
+                    .body(request.toString())
+                    .when().post(WEB + "/books/")
+                    .then().statusCode(HttpStatus.SC_OK)
+                    .extract().as(Book.class);
 
             given().when().get(WEB + "/book/" + book.getId() + "/").then().statusCode(HttpStatus.SC_OK);
             given().when().delete(WEB + "/book/" + book.getId() + "/").then().statusCode(HttpStatus.SC_OK);

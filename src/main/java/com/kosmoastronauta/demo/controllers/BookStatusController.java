@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
 
 @Controller
@@ -46,5 +45,4 @@ public class BookStatusController
     {
         return book.getTitle() != null && book.getAuthor() != null;
     }
-
 }
