@@ -14,6 +14,39 @@ public class BookStatusControllerTest
     public static final String WEB = "http://localhost:8181";
 
     @Test
+    public void OnlyTitleBook()
+    {
+        //Given
+        //When
+        Book book = new Book();
+        book.setTitle("Temp");
+        //Then
+        Assert.assertTrue(BookStatusController.onlyTitle(book));
+    }
+
+    @Test
+    public void OnlyAuthorBook()
+    {
+        //Given
+        //When
+        Book book = new Book();
+        book.setAuthor("Temp");
+        //Then
+        Assert.assertTrue(BookStatusController.onlyAuthor(book));
+    }
+
+    @Test
+    public void EmptyBook()
+    {
+        //Given
+        //When
+        Book book = new Book();
+        book.setEdition("first");
+        //Then
+        Assert.assertTrue(BookStatusController.isEmpty(book));
+    }
+
+    @Test
     public void getAvaliableBooksOnlyByTitle() throws Exception
     {
         String title = "The Shinning";

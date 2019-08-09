@@ -31,22 +31,17 @@ public class BookStatusController
             return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK);
     }
 
-    private boolean onlyTitle(Book book)
+    protected static boolean onlyTitle(Book book)
     {
         return book.getTitle() != null && book.getAuthor() == null;
     }
 
-    private boolean onlyAuthor(Book book)
+    protected static boolean onlyAuthor(Book book)
     {
         return book.getTitle() == null && book.getAuthor() != null;
     }
 
-    private boolean TitleAndAuthor(Book book)
-    {
-        return book.getTitle() != null && book.getAuthor() != null;
-    }
-
-    private boolean isEmpty(Book book)
+    protected static boolean isEmpty(Book book)
     {
         return book.getAuthor() == null && book.getTitle() == null;
     }
