@@ -43,17 +43,17 @@ public class MemberStatusController
         else return new ResponseEntity<>(memberService.getMembersByNameAndLastName(member), HttpStatus.OK);
     }
 
-    protected boolean onlyName(Member member)
+    protected static boolean onlyName(Member member)
     {
         return member.getName() != null && member.getLastName() == null;
     }
 
-    protected boolean onlyLastName(Member member)
+    protected static boolean onlyLastName(Member member)
     {
         return member.getLastName() != null && member.getName() == null;
     }
 
-    protected boolean isEmpty(Member member)
+    protected static boolean isEmpty(Member member)
     {
         return member.getName() == null && member.getLastName() == null;
     }

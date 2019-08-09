@@ -1,5 +1,7 @@
 package com.kosmoastronauta.demo.controllers;
 
+import com.kosmoastronauta.demo.domain.Member;
+import org.junit.Assert;
 import org.junit.Test;
 import org.apache.http.HttpStatus;
 import javax.transaction.Transactional;
@@ -10,6 +12,42 @@ public class MemberStatusControllerTest
 {
     public static final String WEB = "http://localhost:8181";
 
+
+    @Test
+    public void onlyNameMember()
+    {
+        //Given
+        //When
+        Member member = new Member();
+        member.setName("Temp");
+        member.setEmail("temp");
+        //Then
+        Assert.assertTrue(MemberStatusController.onlyName(member));
+    }
+
+    @Test
+    public void onlyLastNameMember()
+    {
+        //Given
+        //When
+        Member member = new Member();
+        member.setLastName("Temp");
+        member.setEmail("temp");
+        //Then
+        Assert.assertTrue(MemberStatusController.onlyLastName(member));
+    }
+
+    @Test
+    public void EmptyMember()
+    {
+        //Given
+        //When
+        Member member = new Member();
+        member.setEmail("temp");
+        member.setId(0);
+        //Then
+        Assert.assertTrue(MemberStatusController.isEmpty(member));
+    }
 
     @Test()
     public void GetStatusExistingMember()
