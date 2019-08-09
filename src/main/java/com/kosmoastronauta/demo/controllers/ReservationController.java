@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 public class ReservationController
@@ -37,22 +38,31 @@ public class ReservationController
     @GetMapping(path = "/reservation/{id}/")
     public ResponseEntity<Reservation> getReservationById(@PathVariable long id)
     {
-        Reservation reservation = reservationService.getReservationById(id);
-        if(reservation!=null) return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+        Reservation reservation;
+        try
+        {
+            reservation = reservationService.getReservationById(id);
+        }catch(NoSuchElementException e)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
     }
 
     @GetMapping(path = "/reservation/fullInfo/{id}/")
     public ResponseEntity<ReservationFullInfo> getFullInfoAboutReservation(@PathVariable("id") long id)
     {
-        ReservationFullInfo reservationFullInfo = reservationService.getFullInfoAboutReservation(id);
+        ReservationFullInfo reservationFullInfo;
+        try
+        {
+            reservationFullInfo = reservationService.getFullInfoAboutReservation(id);
+        }catch(NoSuchElementException e)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
 
-        if(reservationFullInfo != null)
-        { return new ResponseEntity<ReservationFullInfo>(reservationFullInfo, HttpStatus.OK); }
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
+         return new ResponseEntity<ReservationFullInfo>(reservationFullInfo, HttpStatus.OK);
     }
 
     @PutMapping(path = "/reservations/makeReservation/{bookId}/{memberId}/")

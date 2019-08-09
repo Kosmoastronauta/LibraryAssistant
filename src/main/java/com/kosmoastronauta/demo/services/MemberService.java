@@ -5,7 +5,6 @@ import com.kosmoastronauta.demo.domain.ReservationInfoPerMember;
 import com.kosmoastronauta.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -36,23 +35,33 @@ public class MemberService
         return members;
     }
 
-    public Member getMemberById(long id) { return memberRepository.findById(id).get(); }
+    public Member getMemberById(long id)
+    {
+        Member member = memberRepository.findById(id).get();
+        if(member != null) return member;
 
-    public void addMember(Member member){ memberRepository.save(member);}
+        else throw new NullPointerException("There is no member with this id");
+    }
+
+    public void addMember(Member member) { memberRepository.save(member);}
 
     public void deleteMemberById(long id) { memberRepository.deleteById(id); }
 
     public List<ReservationInfoPerMember> getInfoAboutNotReturnedBooksByMemberId(long id)
     {
+        if(memberRepository.findById(id).isEmpty()) throw new NullPointerException("There is no member with this id!");
+
         List<ReservationInfoPerMember> infos = new LinkedList<>();
         int i = 0;
         List<Object[]> results = memberRepository.getInfoAboutNotReturnedBooksForMemberById(id);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-        for(Object[] result: results)
+
+        for(Object[] result : results)
         {
             infos.add(i, new ReservationInfoPerMember(result[0].toString(), result[1].toString(), LocalDateTime.parse(result[2].toString(), formatter), LocalDateTime.parse(result[3].toString(), formatter)));
             i++;
         }
+
         return infos;
     }
 

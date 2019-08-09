@@ -1,4 +1,4 @@
-package com.kosmoastronauta.demo;
+package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.Book;
 import org.apache.http.HttpStatus;
@@ -18,6 +18,12 @@ public class BookControllerTest
     public void GetBooksResponseCodeOk()
     {
         given().when().get(WEB + "/books/").then().statusCode(HttpStatus.SC_OK);
+    }
+
+    @Test
+    public void GetBookWhichNotExist()
+    {
+        given().when().get(WEB + "/book/0/").then().statusCode(HttpStatus.SC_NO_CONTENT);
     }
 
     @Test

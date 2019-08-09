@@ -1,4 +1,4 @@
-package com.kosmoastronauta.demo;
+package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.Book;
 import org.json.JSONObject;

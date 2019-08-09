@@ -1,7 +1,6 @@
 package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.ReservationInfoPerMember;
-import com.kosmoastronauta.demo.repository.MemberRepository;
 import com.kosmoastronauta.demo.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +19,14 @@ public class MemberStatusController
     @GetMapping(path = "/member/{id}/booksToReturn/")
     public ResponseEntity<List<ReservationInfoPerMember>> getNotReturnedBooksByMemberId(@PathVariable long id)
     {
-        return new ResponseEntity<List<ReservationInfoPerMember>>(memberService.getInfoAboutNotReturnedBooksByMemberId(id),
+        try
+        {
+            List<ReservationInfoPerMember> infos = memberService.getInfoAboutNotReturnedBooksByMemberId(id);
+        } catch(NullPointerException e)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(memberService.getInfoAboutNotReturnedBooksByMemberId(id),
                 HttpStatus.OK);
     }
-
 }
