@@ -32,7 +32,7 @@ public class ReservationController
         if(!reservations.isEmpty())
         return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(path = "/reservation/{id}/")
@@ -44,7 +44,7 @@ public class ReservationController
             reservation = reservationService.getReservationById(id);
         }catch(NoSuchElementException e)
         {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
@@ -59,7 +59,7 @@ public class ReservationController
             reservationFullInfo = reservationService.getFullInfoAboutReservation(id);
         }catch(NoSuchElementException e)
         {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
          return new ResponseEntity<ReservationFullInfo>(reservationFullInfo, HttpStatus.OK);

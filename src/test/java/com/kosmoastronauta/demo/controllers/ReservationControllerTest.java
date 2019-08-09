@@ -20,6 +20,30 @@ public class ReservationControllerTest
     }
 
     @Test
+    public void getReservationByIdExistingReservation()
+    {
+        given().when().get(WEB + "/reservation/37/").then().assertThat().statusCode(HttpStatus.SC_OK);
+    }
+
+    @Test
+    public void getReservationByIdNotExistingReservation()
+    {
+        given().when().get(WEB + "/reservation/0/").then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND);
+    }
+
+    @Test
+    public void getFullInfoAboutNotExistingReservation()
+    {
+        given().when().get(WEB + "/reservation/fullInfo/0/").then().assertThat().statusCode(HttpStatus.SC_NOT_FOUND);
+    }
+
+    @Test
+    public void getFullInfoAboutExistingReservation()
+    {
+        given().when().get(WEB + "/reservation/fullInfo/37/").then().assertThat().statusCode(HttpStatus.SC_OK);
+    }
+
+    @Test
     public void makingReservationAndReturning()
     {
         Reservation reservation = given().contentType("/application/json")
