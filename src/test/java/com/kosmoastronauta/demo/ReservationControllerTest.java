@@ -22,19 +22,33 @@ public class ReservationControllerTest
     @Test
     public void makingReservationAndReturning()
     {
-        Reservation reservation = given().contentType("/application/json").when().put(WEB + "/reservations" + "/makeReservation/2/16/").then().statusCode(HttpStatus.SC_OK).extract().as(Reservation.class);
+        Reservation reservation = given().contentType("/application/json")
+                .when().put(WEB + "/reservations" + "/makeReservation/2/16/")
+                .then().statusCode(HttpStatus.SC_OK)
+                .extract().as(Reservation.class);
         long bookId = reservation.getBookId();
         long reservationId = reservation.getId();
 
-        Book book = given().contentType("application/json").when().get(WEB + "/book/" + bookId + "/").then().statusCode(HttpStatus.SC_OK).extract().as(Book.class);
+        Book book = given().contentType("application/json")
+                .when().get(WEB + "/book/" + bookId + "/")
+                .then().statusCode(HttpStatus.SC_OK)
+                .extract().as(Book.class);
         Assert.assertFalse(book.isFree());
 
         //returning
-        given().when().post(WEB + "/reservation/return/byId/" + reservation.getId() + "/").then().statusCode(HttpStatus.SC_OK);
+        given().when().post(WEB + "/reservation/return/byId/" + reservation.getId() + "/")
+                .then().statusCode(HttpStatus.SC_OK);
 
-        book = given().contentType("application/json").when().get(WEB + "/book/" + bookId + "/").then().statusCode(HttpStatus.SC_OK).extract().as(Book.class);
-        Assert.assertTrue(book.isFree());
-        reservation = given().when().get(WEB + "/reservation/" + reservationId + "/").then().statusCode(HttpStatus.SC_OK).extract().as(Reservation.class);
-        Assert.assertTrue(reservation.isReturned());
+        book = given().contentType("application/json")
+                .when().get(WEB + "/book/" + bookId + "/")
+                .then().statusCode(HttpStatus.SC_OK)
+                .extract().as(Book.class);
+
+        Assert.assertTrue(book.isFree()); // checking status is free in table book
+        reservation = given().when().get(WEB + "/reservation/" + reservationId + "/")
+                .then().statusCode(HttpStatus.SC_OK)
+
+                .extract().as(Reservation.class);
+        Assert.assertTrue(reservation.isReturned()); // checking status isReturned in table reservation
     }
 }

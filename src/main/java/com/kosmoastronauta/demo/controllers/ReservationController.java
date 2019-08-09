@@ -59,7 +59,7 @@ public class ReservationController
     public ResponseEntity<Reservation> makeReservation(@PathVariable("bookId") long bookId,
                                                       @PathVariable("memberId") long memberId)
     {
-        Reservation reservation = new Reservation();
+        Reservation reservation;
         try
         {
             reservation = reservationService.addReservation(bookService.getBookById(bookId),
