@@ -80,6 +80,4 @@ public class MemberService
         return memberRepository.getMembersByNameEqualsAndLastNameEquals(member.getName(),member.getLastName());
     }
 
-
-
 }

@@ -19,6 +19,8 @@ public class BookStatusController
     @PostMapping(path = "/books/avaliable/")
     public ResponseEntity<List<Book>> getAvaliableBooksByTitle(@RequestBody Book book)
     {
+        if(isEmpty(book)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
         if(onlyAuthor(book))
             return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByAuthor(book), HttpStatus.OK);
 
@@ -27,8 +29,6 @@ public class BookStatusController
 
         else
             return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK);
-
-
     }
 
     private boolean onlyTitle(Book book)
@@ -44,5 +44,10 @@ public class BookStatusController
     private boolean TitleAndAuthor(Book book)
     {
         return book.getTitle() != null && book.getAuthor() != null;
+    }
+
+    private boolean isEmpty(Book book)
+    {
+        return book.getAuthor() == null && book.getTitle() == null;
     }
 }
