@@ -20,13 +20,13 @@ public class BookStatusController
     public ResponseEntity<List<Book>> getAvaliableBooksByTitle(@RequestBody Book book)
     {
         if(onlyAuthor(book))
-            return new ResponseEntity<List<Book>>(bookService.getAvaliableBooksOnlyByAuthor(book), HttpStatus.OK);
+            return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByAuthor(book), HttpStatus.OK);
 
         if(onlyTitle(book))
-            return new ResponseEntity<List<Book>>(bookService.getAvaliableBooksOnlyByTitle(book), HttpStatus.OK);
+            return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByTitle(book), HttpStatus.OK);
 
         else
-            return new ResponseEntity<List<Book>>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK);
+            return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK);
 
 
     }
