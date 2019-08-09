@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.List;
 
 @Controller
@@ -24,6 +23,5 @@ public class MemberStatusController
         return new ResponseEntity<List<ReservationInfoPerMember>>(memberService.getInfoAboutNotReturnedBooksByMemberId(id),
                 HttpStatus.OK);
     }
-
 
 }
