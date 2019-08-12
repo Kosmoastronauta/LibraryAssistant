@@ -1,4 +1,4 @@
-package com.kosmoastronauta.demo;
+package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.Book;
 import org.apache.http.HttpStatus;
@@ -21,6 +21,12 @@ public class BookControllerTest
     }
 
     @Test
+    public void GetBookWhichNotExist()
+    {
+        given().when().get(WEB + "/book/0/").then().statusCode(HttpStatus.SC_NO_CONTENT);
+    }
+
+    @Test
     public void addingCheckingIfExistsAndRemovingBook()
     {
         try
@@ -30,7 +36,11 @@ public class BookControllerTest
             request.put("author", "Temp author");
             request.put("edition", "first");
 
-            Book book = given().contentType("application/json").body(request.toString()).when().post(WEB + "/books/").then().statusCode(HttpStatus.SC_OK).extract().as(Book.class);
+            Book book = given().contentType("application/json")
+                    .body(request.toString())
+                    .when().post(WEB + "/books/")
+                    .then().statusCode(HttpStatus.SC_OK)
+                    .extract().as(Book.class);
 
             given().when().get(WEB + "/book/" + book.getId() + "/").then().statusCode(HttpStatus.SC_OK);
             given().when().delete(WEB + "/book/" + book.getId() + "/").then().statusCode(HttpStatus.SC_OK);

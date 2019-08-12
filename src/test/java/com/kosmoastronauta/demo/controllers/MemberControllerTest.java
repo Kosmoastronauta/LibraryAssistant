@@ -1,4 +1,4 @@
-package com.kosmoastronauta.demo;
+package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.Member;
 import org.apache.http.HttpStatus;
@@ -12,6 +12,12 @@ import static io.restassured.RestAssured.given;
 public class MemberControllerTest
 {
     public static final String WEB = "http://localhost:8181";
+
+    @Test
+    public void GetBookWhichNotExist()
+    {
+        given().when().get(WEB + "/member/0/").then().statusCode(HttpStatus.SC_NO_CONTENT);
+    }
 
     @Test
     public void GetAllMembersResponseCodeOk()
@@ -30,7 +36,6 @@ public class MemberControllerTest
             request.put("email", "temp email");
 
             Member member = given().contentType("application/json").body(request.toString()).when().post(WEB + "/members/").then().statusCode(HttpStatus.SC_OK).extract().as(Member.class);
-
 
             given().when().get(WEB + "/member/" + member.getId() + "/").then().statusCode(200);
             given().when().delete(WEB + "/member/" + member.getId() + "/").then().statusCode(200);

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 public class BookController
@@ -31,7 +32,7 @@ public class BookController
         {
             book = bookService.getBookById(id);
 
-        } catch(NullPointerException e)
+        } catch(NoSuchElementException e)
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

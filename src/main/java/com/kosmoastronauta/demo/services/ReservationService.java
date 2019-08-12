@@ -4,16 +4,12 @@ import com.kosmoastronauta.demo.domain.Book;
 import com.kosmoastronauta.demo.domain.Member;
 import com.kosmoastronauta.demo.domain.Reservation;
 import com.kosmoastronauta.demo.domain.ReservationFullInfo;
-import com.kosmoastronauta.demo.repository.BookRepository;
-import com.kosmoastronauta.demo.repository.MemberRepository;
 import com.kosmoastronauta.demo.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.validation.constraints.Null;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ReservationService
@@ -53,7 +49,10 @@ public class ReservationService
 
     public Reservation getReservationById(long id)
     {
-        return reservationRepository.findById(id).get();
+        Reservation reservation = reservationRepository.findById(id).get();
+        if(reservation == null) throw new NoSuchElementException("There is no reservation with this id");
+
+        return reservation;
     }
 
     public Reservation addReservation(Book book, Member member)
@@ -73,6 +72,8 @@ public class ReservationService
     public ReservationFullInfo getFullInfoAboutReservation(long reservationId)
     {
         Reservation reservation = this.getReservationById(reservationId);
+        if(reservation == null) throw new NoSuchElementException("There is no reservation with this id");
+
         Book book = bookService.getBookById(reservation.getBookId()); // To fill all information about book
         Member member = memberService.getMemberById(reservation.getMemberId()); // same as above
         boolean returnedStatus = reservationRepository.getReturnedStatusByReservationId(reservationId);
