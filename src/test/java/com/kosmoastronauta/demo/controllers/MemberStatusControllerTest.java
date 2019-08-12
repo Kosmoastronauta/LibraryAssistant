@@ -21,7 +21,7 @@ public class MemberStatusControllerTest
         member.setName("Temp");
         member.setEmail("temp");
         //Then
-        Assert.assertTrue(MemberStatusController.onlyName(member));
+        Assert.assertTrue(MemberStatusController.isOnlyName(member));
     }
 
     @Test

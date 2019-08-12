@@ -30,7 +30,7 @@ public class ReservationController
         List<Reservation> reservations = reservationService.getAllReservations();
 
         if(!reservations.isEmpty())
-        return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -47,7 +47,7 @@ public class ReservationController
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
     @GetMapping(path = "/reservation/fullInfo/{id}/")
@@ -62,7 +62,7 @@ public class ReservationController
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-         return new ResponseEntity<ReservationFullInfo>(reservationFullInfo, HttpStatus.OK);
+         return new ResponseEntity<>(reservationFullInfo, HttpStatus.OK);
     }
 
     @PutMapping(path = "/reservations/makeReservation/{bookId}/{memberId}/")
@@ -79,7 +79,7 @@ public class ReservationController
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
     @PostMapping(path = "/reservation/return/byId/{reservationId}/")
