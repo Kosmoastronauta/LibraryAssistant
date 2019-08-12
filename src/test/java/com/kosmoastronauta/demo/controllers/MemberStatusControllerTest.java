@@ -12,7 +12,6 @@ public class MemberStatusControllerTest
 {
     public static final String WEB = "http://localhost:8181";
 
-
     @Test
     public void onlyNameMember()
     {
@@ -34,7 +33,7 @@ public class MemberStatusControllerTest
         member.setLastName("Temp");
         member.setEmail("temp");
         //Then
-        Assert.assertTrue(MemberStatusController.onlyLastName(member));
+        Assert.assertTrue(MemberStatusController.isOnlyLastName(member));
     }
 
     @Test
@@ -60,7 +59,5 @@ public class MemberStatusControllerTest
     {
         given().when().get(WEB + "/member/0/booksToReturn/").then().assertThat().statusCode(HttpStatus.SC_NO_CONTENT);
     }
-
-
 
 }

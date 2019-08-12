@@ -21,22 +21,22 @@ public class BookStatusController
     {
         if(isEmpty(book)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        if(onlyAuthor(book))
+        if(isOnlyAuthor(book))
             return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByAuthor(book), HttpStatus.OK);
 
-        if(onlyTitle(book))
+        if(isOnlyTitle(book))
             return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByTitle(book), HttpStatus.OK);
 
         else
             return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK);
     }
 
-    protected static boolean onlyTitle(Book book)
+    protected static boolean isOnlyTitle(Book book)
     {
         return book.getTitle() != null && book.getAuthor() == null;
     }
 
-    protected static boolean onlyAuthor(Book book)
+    protected static boolean isOnlyAuthor(Book book)
     {
         return book.getTitle() == null && book.getAuthor() != null;
     }

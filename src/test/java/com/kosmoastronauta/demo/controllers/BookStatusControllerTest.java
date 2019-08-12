@@ -21,7 +21,7 @@ public class BookStatusControllerTest
         Book book = new Book();
         book.setTitle("Temp");
         //Then
-        Assert.assertTrue(BookStatusController.onlyTitle(book));
+        Assert.assertTrue(BookStatusController.isOnlyTitle(book));
     }
 
     @Test
@@ -32,7 +32,7 @@ public class BookStatusControllerTest
         Book book = new Book();
         book.setAuthor("Temp");
         //Then
-        Assert.assertTrue(BookStatusController.onlyAuthor(book));
+        Assert.assertTrue(BookStatusController.isOnlyAuthor(book));
     }
 
     @Test

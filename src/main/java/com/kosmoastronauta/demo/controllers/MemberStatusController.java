@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -27,6 +26,7 @@ public class MemberStatusController
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
         return new ResponseEntity<>(memberService.getInfoAboutNotReturnedBooksByMemberId(id),
                 HttpStatus.OK);
     }
@@ -36,19 +36,19 @@ public class MemberStatusController
     {
         if(isEmpty(member)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        if(onlyName(member)) return new ResponseEntity<>(memberService.getMembersByOnlyName(member), HttpStatus.OK);
+        if(isOnlyName(member)) return new ResponseEntity<>(memberService.getMembersByOnlyName(member), HttpStatus.OK);
 
-        if(onlyLastName(member)) return new ResponseEntity<>(memberService.getMembersByOnlyLastName(member), HttpStatus.OK);
+        if(isOnlyLastName(member)) return new ResponseEntity<>(memberService.getMembersByOnlyLastName(member), HttpStatus.OK);
 
         else return new ResponseEntity<>(memberService.getMembersByNameAndLastName(member), HttpStatus.OK);
     }
 
-    protected static boolean onlyName(Member member)
+    protected static boolean isOnlyName(Member member)
     {
         return member.getName() != null && member.getLastName() == null;
     }
 
-    protected static boolean onlyLastName(Member member)
+    protected static boolean isOnlyLastName(Member member)
     {
         return member.getLastName() != null && member.getName() == null;
     }
