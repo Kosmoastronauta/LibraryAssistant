@@ -9,33 +9,38 @@
     <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="hello.js"></script>
+
 </head>
 
 
 <body>
-<div class="container">
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">Title</th>
-            <th scope="col">Author</th>
-            <th scope="col">Edition</th>
-        </tr>
-        </thead>
-        <tbody th:each="book: ${books}">
-        <tr>
-            <th scope="row">1</th>
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.edition}"></td>
-            <td>
-                <span th:if="${book.isFree==true}">Free</span>
-                <span th:if="${book.isFree==false}">Occupied</span>
-            </td>
-        </tr>
 
-        </tbody>
+
+<div class="container">
+    <p class="books">books</p>
+    <p class="books-title">Title</p>
+    <p class="book-author">Author</p>
+    <p class="book-edition">Edition</p>
+    <p class="book-free">Free</p>
+
+    <thead>
+    <tr>
+        <td class="">Id</td>
+        <td>title</td>
+        <td>Author</td>
+        <td>Edition</td>
+        <td>Status</td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody each="book: ${books}">
+    <tr>
+        <td> </td>
+
+    </tr>
+    </tbody>
     </table>
 
 

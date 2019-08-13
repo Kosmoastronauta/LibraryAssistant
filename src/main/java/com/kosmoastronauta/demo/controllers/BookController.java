@@ -15,6 +15,7 @@ public class BookController
     @Autowired
     BookService bookService;
 
+    @CrossOrigin(origins = "http://localhost:63342")
     @GetMapping(path = "/books/")
     public ResponseEntity<List<Book>> getBooks()
     {
@@ -27,7 +28,7 @@ public class BookController
     @GetMapping(path = "/book/{id}/")
     public ResponseEntity<Book> getBookById(@PathVariable int id)
     {
-        Book book = new Book();
+        Book book;
         try
         {
             book = bookService.getBookById(id);
