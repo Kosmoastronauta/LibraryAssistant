@@ -5,6 +5,7 @@ import com.kosmoastronauta.demo.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ public class BookStatusController
     @Autowired
     BookService bookService;
 
+    @CrossOrigin(origins = "http://localhost:8282")
     @PostMapping(path = "/books/avaliable/")
     public ResponseEntity<List<Book>> getAvaliableBooksByTitle(@RequestBody Book book)
     {

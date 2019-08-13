@@ -15,6 +15,7 @@ public class MemberController
     @Autowired
     MemberService memberService;
 
+    @CrossOrigin(origins = "http://localhost:8282")
     @GetMapping(path = "/members/")
     public ResponseEntity<List<Member>> getMembers()
     {
@@ -24,6 +25,7 @@ public class MemberController
         return new ResponseEntity<List<Member>>(members, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:8282")
     @GetMapping(path = "/member/{id}/")
     public ResponseEntity<Member> getMemberById(@PathVariable long id)
     {
@@ -39,6 +41,7 @@ public class MemberController
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:8282")
     @PostMapping(path = "/members/")
     public ResponseEntity<Member> addMember(@RequestBody Member member)
     {
@@ -47,6 +50,7 @@ public class MemberController
         return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:8282")
     @DeleteMapping(path = "/member/{id}/")
     public void deleteMember(@PathVariable int id) {memberService.deleteMemberById(id);}
 }

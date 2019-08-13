@@ -16,6 +16,7 @@ public class MemberStatusController
     @Autowired
     MemberService memberService;
 
+    @CrossOrigin(origins = "http://localhost:8282")
     @GetMapping(path = "/member/{id}/booksToReturn/")
     public ResponseEntity<List<ReservationInfoPerMember>> getNotReturnedBooksByMemberId(@PathVariable long id)
     {

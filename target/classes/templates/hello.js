@@ -17,11 +17,6 @@ $(document).ready(function() {
         url: "http://localhost:8080/books/"
     }).then(function(data) {
         $('.books').append(data);
-
-        for(i = 0; i < data.length; i++)
-        {
-            document.write("" + data[i].id);
-        }
         console.log(data);
     });
 
