@@ -88,9 +88,17 @@ public class ReservationController
 
     @CrossOrigin(origins = "http://localhost:8282")
     @GetMapping(path = "/reservation/notReturned/bookId/{bookId}/")
-    public ResponseEntity<Reservation> getReservationInfoAboutNotReturnedBookById(@PathVariable("bookId"), long bookId)
+    public ResponseEntity<Reservation> getReservationInfoAboutNotReturnedBookById(@PathVariable("bookId") long bookId)
     {
-
+        Reservation reservation;
+        try
+        {
+            reservation = reservationService.getNotReturnedReservationByBookId(bookId);
+        }catch(NoSuchElementException e)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
 

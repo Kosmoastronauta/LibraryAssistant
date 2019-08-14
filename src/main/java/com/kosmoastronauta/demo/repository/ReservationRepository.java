@@ -26,6 +26,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
     public long getMemberIdByReservationId(@Param("memberId") long memberId);
 
     @Query(value = "SELECT * FROM reservation INNER JOIN book on reservation.book_id=book.id WHERE book.id=:idOfBook " + "AND book.returned=false", nativeQuery = true)
-    public Object[] getNotReturnedReservationByBookId(@Param("ifOfBook"), long idOfBook);
+    public Object[] getNotReturnedReservationByBookId(@Param("ifOfBook") long idOfBook);
 
 }
