@@ -87,6 +87,14 @@ public class ReservationController
     }
 
     @CrossOrigin(origins = "http://localhost:8282")
+    @GetMapping(path = "/reservation/notReturned/bookId/{bookId}/")
+    public ResponseEntity<Reservation> getReservationInfoAboutNotReturnedBookById(@PathVariable("bookId"), long bookId)
+    {
+
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:8282")
     @PostMapping(path = "/reservation/return/byId/{reservationId}/")
     public void returnBook(@PathVariable long reservationId)
     {
