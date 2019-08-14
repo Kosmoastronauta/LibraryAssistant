@@ -98,7 +98,7 @@ public class ReservationService
         reservationRepository.save(reservation);
     }
 
-    public List<ReservationInfo> getNotReturnedReservationByBookId(long id)
+    public ReservationInfo getNotReturnedReservationByBookId(long id)
     {
         Reservation reservation = new Reservation();
 
@@ -120,6 +120,6 @@ public class ReservationService
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 //        reservation.setStart(LocalDateTime.parse(response[3].toString(), formatter));
 //        reservation.setEnd(LocalDateTime.parse(response[4].toString(), formatter));
-        return infos;
+        return infos.get(0);
     }
 }
