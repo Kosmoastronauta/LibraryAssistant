@@ -1,9 +1,6 @@
 package com.kosmoastronauta.demo.services;
 
-import com.kosmoastronauta.demo.domain.Book;
-import com.kosmoastronauta.demo.domain.Member;
-import com.kosmoastronauta.demo.domain.Reservation;
-import com.kosmoastronauta.demo.domain.ReservationFullInfo;
+import com.kosmoastronauta.demo.domain.*;
 import com.kosmoastronauta.demo.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -100,18 +98,28 @@ public class ReservationService
         reservationRepository.save(reservation);
     }
 
-    public Reservation getNotReturnedReservationByBookId(long id)
+    public List<ReservationInfo> getNotReturnedReservationByBookId(long id)
     {
         Reservation reservation = new Reservation();
-        Object[] response= reservationRepository.getNotReturnedReservationByBookId(id);
-        reservation.setId(Long.parseLong(response[0].toString()));
-        reservation.setBookId(Long.parseLong(response[1].toString()));
-        reservation.setMemberId(Long.parseLong(response[2].toString()));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-        reservation.setStart(LocalDateTime.parse(response[3].toString()));
-        reservation.setEnd(LocalDateTime.parse(response[4].toString()));
-        reservation.setReturned(Boolean.valueOf(response[5].toString()));
 
-        return reservation;
+        List<ReservationInfo> infos = new LinkedList<>();
+        List<Object[]> results = reservationRepository.getNotReturnedReservationByBookId(id);
+        int i = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+        for(Object[] result: results)
+        {
+            infos.add(i, new ReservationInfo(Long.valueOf(result[0].toString()), Long.valueOf(result[1].toString()), Long.valueOf(result[2].toString()), LocalDateTime.parse(result[3].toString(), formatter), LocalDateTime.parse(result[4].toString(), formatter)));
+        }
+
+//
+//        //reservation.setId(Long.valueOf(response[0].toString()));
+////        reservation.setBookId(Long.valueOf(response[1].toString()));
+////        reservation.setMemberId(Long.valueOf(response[2].toString()));
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+//        reservation.setStart(LocalDateTime.parse(response[3].toString(), formatter));
+//        reservation.setEnd(LocalDateTime.parse(response[4].toString(), formatter));
+        return infos;
     }
 }

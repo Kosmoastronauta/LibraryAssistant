@@ -2,6 +2,7 @@ package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.Reservation;
 import com.kosmoastronauta.demo.domain.ReservationFullInfo;
+import com.kosmoastronauta.demo.domain.ReservationInfo;
 import com.kosmoastronauta.demo.services.BookService;
 import com.kosmoastronauta.demo.services.MemberService;
 import com.kosmoastronauta.demo.services.ReservationService;
@@ -86,11 +87,11 @@ public class ReservationController
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    //@CrossOrigin(origins = "http://localhost:8282")
     @GetMapping(path = "/reservation/notReturned/bookId/{bookId}/")
-    public ResponseEntity<Reservation> getReservationInfoAboutNotReturnedBookById(@PathVariable("bookId") long bookId)
+    public ResponseEntity<List<ReservationInfo>> getReservationInfoAboutNotReturnedBookById(@PathVariable("bookId") long bookId)
     {
-        Reservation reservation;
+        List<ReservationInfo> reservation;
         try
         {
             reservation = reservationService.getNotReturnedReservationByBookId(bookId);

@@ -1,13 +1,9 @@
 package com.kosmoastronauta.demo.domain;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-public class Reservation
+public class ReservationInfo
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private long bookId;
@@ -16,17 +12,13 @@ public class Reservation
     private LocalDateTime end;
     private boolean returned;
 
-
-
-    public Reservation() {}
-
-    public Reservation(Book book, Member member)
+    public ReservationInfo(long id, long bookId, long memberId, LocalDateTime start, LocalDateTime end)
     {
-        this.bookId = book.getId();
-        this.memberId = member.getId();
-        this.start = LocalDateTime.now();
-        end = start.plusMonths(1);
-        returned = false;
+        this.id = id;
+        this.bookId = bookId;
+        this.memberId = memberId;
+        this.start = start;
+        this.end = end;
     }
 
     public long getId()
@@ -79,7 +71,13 @@ public class Reservation
         this.end = end;
     }
 
-    public boolean isReturned() { return returned; }
+    public boolean isReturned()
+    {
+        return returned;
+    }
 
-    public void setReturned(boolean returned) { this.returned = returned; }
+    public void setReturned(boolean returned)
+    {
+        this.returned = returned;
+    }
 }
