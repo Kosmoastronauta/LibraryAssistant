@@ -43,6 +43,18 @@ public class MemberStatusController
         else return new ResponseEntity<>(memberService.getMembersByNameAndLastName(member), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/members/search/")
+    public ResponseEntity<List<Member>> getMembersByInputToCheck(@RequestBody Member member)
+    {
+        if(isEmpty(member)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        if(isOnlyName(member)) return new ResponseEntity<>(memberService.getMembersByOnlyName(member), HttpStatus.OK);
+
+        if(isOnlyLastName(member)) return new ResponseEntity<>(memberService.getMembersByOnlyLastName(member), HttpStatus.OK);
+
+        else return new ResponseEntity<>(memberService.getMembersByNameAndLastName(member), HttpStatus.OK);
+    }
+
     protected static boolean isOnlyName(Member member)
     {
         return member.getName() != null && member.getLastName() == null;
