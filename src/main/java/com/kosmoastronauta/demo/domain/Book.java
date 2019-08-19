@@ -22,10 +22,8 @@ public class Book
     public Book() {}
 
     @NotNull
-    @Size(min=2, max=30)
     private String title;
     @NotNull
-    @Size(min=2, max=30)
     private String author;
 
     private String edition;
