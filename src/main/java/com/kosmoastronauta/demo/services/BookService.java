@@ -66,12 +66,13 @@ public class BookService
 
     public List<Book> getBooksByTitle(Book book)
     {
-        return bookRepository.getBooksByTitleIsLike(book.getTitle());
+        System.out.println(book.getTitle());
+        return bookRepository.getBooksByTitleLike(book.getTitle());
     }
 
     public List<Book> getBooksByAuthor(Book book)
     {
-        return bookRepository.getBooksByAuthorIsLike(book.getAuthor());
+        return bookRepository.getBooksByAuthorLike(book.getAuthor());
     }
 
     public List<Book> getBooksByTitleAndAuthor(Book book)
