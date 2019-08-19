@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -24,27 +25,26 @@ public class BookStatusController
         if(isEmpty(book)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         if(isOnlyAuthor(book))
-            return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByAuthor(book), HttpStatus.OK);
+        { return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByAuthor(book), HttpStatus.OK); }
 
         if(isOnlyTitle(book))
-            return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByTitle(book), HttpStatus.OK);
+        { return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByTitle(book), HttpStatus.OK); }
 
-        else
-            return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK);
+        else { return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK); }
     }
 
     protected static boolean isOnlyTitle(Book book)
     {
-        return book.getTitle() != null && book.getAuthor() == null;
+        return book.getTitle() != null && (book.getAuthor() == null || book.getAuthor() == "");
     }
 
     protected static boolean isOnlyAuthor(Book book)
     {
-        return book.getTitle() == null && book.getAuthor() != null;
+        return (book.getTitle() == null || book.getTitle() == "") && book.getAuthor() != null;
     }
 
     protected static boolean isEmpty(Book book)
     {
-        return book.getAuthor() == null && book.getTitle() == null;
+        return (book.getTitle() == null || book.getTitle() == "") && (book.getAuthor() == null || book.getAuthor() == "");
     }
 }
