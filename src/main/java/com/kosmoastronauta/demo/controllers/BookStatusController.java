@@ -32,7 +32,7 @@ public class BookStatusController
 
         else { return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK); }
     }
-
+    @CrossOrigin(origins = "http://localhost:8282")
     @PostMapping(path = "/books/search/")
     public ResponseEntity<List<Book>> getBooksByData(@RequestBody Book book)
     {
