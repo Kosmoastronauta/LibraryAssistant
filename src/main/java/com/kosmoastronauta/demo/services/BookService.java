@@ -64,4 +64,19 @@ public class BookService
         bookRepository.deleteById(id);
     }
 
+    public List<Book> getBooksByTitle(Book book)
+    {
+        return bookRepository.getBooksByTitleIsLike(book.getTitle());
+    }
+
+    public List<Book> getBooksByAuthor(Book book)
+    {
+        return bookRepository.getBooksByAuthorIsLike(book.getAuthor());
+    }
+
+    public List<Book> getBooksByTitleAndAuthor(Book book)
+    {
+        return bookRepository.getBooksByTitleIsLikeAndAndAuthorIsLike(book.getTitle(), book.getAuthor());
+    }
+
 }

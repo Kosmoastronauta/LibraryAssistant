@@ -33,6 +33,20 @@ public class BookStatusController
         else { return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK); }
     }
 
+    @PostMapping(path = "/books/search/")
+    public ResponseEntity<List<Book>> getBooksByData(@RequestBody Book book)
+    {
+        if(isEmpty(book)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        if(isOnlyAuthor(book))
+        { return new ResponseEntity<>(bookService.getBoo(book), HttpStatus.OK); }
+
+        if(isOnlyTitle(book))
+        { return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByTitle(book), HttpStatus.OK); }
+
+        else { return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK); }
+    }
+
     protected static boolean isOnlyTitle(Book book)
     {
         return book.getTitle() != null && (book.getAuthor() == null || book.getAuthor() == "");
