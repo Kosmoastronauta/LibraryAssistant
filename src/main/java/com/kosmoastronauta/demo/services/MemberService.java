@@ -67,17 +67,17 @@ public class MemberService
 
     public List<Member> getMembersByOnlyName(Member member)
     {
-        return memberRepository.getMembersByNameEquals(member.getName());
+        return memberRepository.getMembersByNameLike(member.getName());
     }
 
     public List<Member> getMembersByOnlyLastName(Member member)
     {
-        return memberRepository.getMembersByLastNameEquals(member.getLastName());
+        return memberRepository.getMembersByLastNameLike(member.getLastName());
     }
 
     public List<Member> getMembersByNameAndLastName(Member member)
     {
-        return memberRepository.getMembersByNameEqualsAndLastNameEquals(member.getName(),member.getLastName());
+        return memberRepository.getMembersByNameIsLikeAndAndLastNameIsLike(member.getName(),member.getLastName());
     }
 
 }
