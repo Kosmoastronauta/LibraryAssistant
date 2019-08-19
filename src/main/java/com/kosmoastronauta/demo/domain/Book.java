@@ -1,6 +1,8 @@
 package com.kosmoastronauta.demo.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Book
@@ -19,8 +21,13 @@ public class Book
 
     public Book() {}
 
+    @NotNull
+    @Size(min=2, max=30)
     private String title;
+    @NotNull
+    @Size(min=2, max=30)
     private String author;
+
     private String edition;
     private boolean free; // true - free, false - borrowed
 
