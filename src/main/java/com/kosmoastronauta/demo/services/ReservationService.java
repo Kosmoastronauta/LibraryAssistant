@@ -63,6 +63,7 @@ public class ReservationService
         else
         {
             book.setFree(false);
+            member.setNumberOfCurrentlyBorrowedBooks(member.getNumberOfCurrentlyBorrowedBooks()+1);
             Reservation reservation = new Reservation(book, member);
             reservationRepository.save(reservation);
 
@@ -92,7 +93,14 @@ public class ReservationService
         long bookId = reservationRepository.getBookIdByReservationId(reservationId);
         Book book = bookService.getBookById(bookId);
         book.setFree(true);
-        bookService.addBook(book);
+       // bookService.addBook(book);
+
+        long memberId = reservationRepository.getMemberIdByReservationId(reservationId);
+        Member member = memberService.getMemberById(memberId);
+        member.setNumberOfCurrentlyBorrowedBooks(member.getNumberOfCurrentlyBorrowedBooks() -1);
+       // memberService.addMember(member);
+
+
         Reservation reservation = reservationRepository.findById(reservationId).get();
         reservation.setReturned(true);
         reservationRepository.save(reservation);

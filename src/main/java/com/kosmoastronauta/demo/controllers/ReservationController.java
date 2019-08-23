@@ -70,7 +70,7 @@ public class ReservationController
     }
 
     @CrossOrigin(origins = "http://localhost:8282")
-    @PutMapping(path = "/reservations/makeReservation/{bookId}/{memberId}/")
+    @PostMapping(path = "/reservations/makeReservation/{bookId}/{memberId}/")
     public ResponseEntity<Reservation> makeReservation(@PathVariable("bookId") long bookId,
                                                       @PathVariable("memberId") long memberId)
     {
@@ -101,7 +101,6 @@ public class ReservationController
         }
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
-
 
     @CrossOrigin(origins = "http://localhost:8282")
     @PostMapping(path = "/reservation/return/byId/{reservationId}/")
