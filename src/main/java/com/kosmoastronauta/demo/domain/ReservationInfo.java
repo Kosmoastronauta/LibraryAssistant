@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 public class ReservationInfo
 {
     private long id;
-
     private long bookId;
     private long memberId;
     private LocalDateTime start;

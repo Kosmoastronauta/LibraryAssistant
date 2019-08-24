@@ -4,7 +4,6 @@ import com.kosmoastronauta.demo.domain.*;
 import com.kosmoastronauta.demo.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -93,13 +92,10 @@ public class ReservationService
         long bookId = reservationRepository.getBookIdByReservationId(reservationId);
         Book book = bookService.getBookById(bookId);
         book.setFree(true);
-       // bookService.addBook(book);
 
         long memberId = reservationRepository.getMemberIdByReservationId(reservationId);
         Member member = memberService.getMemberById(memberId);
         member.setNumberOfCurrentlyBorrowedBooks(member.getNumberOfCurrentlyBorrowedBooks() -1);
-       // memberService.addMember(member);
-
 
         Reservation reservation = reservationRepository.findById(reservationId).get();
         reservation.setReturned(true);
@@ -108,8 +104,6 @@ public class ReservationService
 
     public ReservationInfo getNotReturnedReservationByBookId(long id)
     {
-        Reservation reservation = new Reservation();
-
         List<ReservationInfo> infos = new LinkedList<>();
         List<Object[]> results = reservationRepository.getNotReturnedReservationByBookId(id);
         int i = 0;
@@ -120,14 +114,6 @@ public class ReservationService
             infos.add(i, new ReservationInfo(Long.valueOf(result[0].toString()), Long.valueOf(result[1].toString()), Long.valueOf(result[2].toString()), LocalDateTime.parse(result[3].toString(), formatter), LocalDateTime.parse(result[4].toString(), formatter)));
         }
 
-//
-//        //reservation.setId(Long.valueOf(response[0].toString()));
-////        reservation.setBookId(Long.valueOf(response[1].toString()));
-////        reservation.setMemberId(Long.valueOf(response[2].toString()));
-//
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
-//        reservation.setStart(LocalDateTime.parse(response[3].toString(), formatter));
-//        reservation.setEnd(LocalDateTime.parse(response[4].toString(), formatter));
         return infos.get(0);
     }
 }

@@ -16,8 +16,6 @@ public class Reservation
     private LocalDateTime end;
     private boolean returned;
 
-
-
     public Reservation() {}
 
     public Reservation(Book book, Member member)

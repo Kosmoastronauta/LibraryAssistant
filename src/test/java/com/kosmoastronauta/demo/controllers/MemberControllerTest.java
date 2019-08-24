@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 @Transactional
 public class MemberControllerTest
 {
-    public static final String WEB = "http://localhost:8181";
+    public static final String WEB = "http://localhost:8080";
 
     @Test
     public void GetBookWhichNotExist()
