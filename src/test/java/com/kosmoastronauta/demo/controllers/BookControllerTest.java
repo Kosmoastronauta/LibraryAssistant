@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 public class BookControllerTest
 {
 
-    public static final String WEB = "http://localhost:8080";
+    public static final String WEB = "http://localhost:4200";
 
     @Test
     public void GetBooksResponseCodeOk()

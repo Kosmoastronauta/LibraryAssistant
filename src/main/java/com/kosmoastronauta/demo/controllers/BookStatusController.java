@@ -18,7 +18,7 @@ public class BookStatusController
     @Autowired
     BookService bookService;
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/books/avaliable/")
     public ResponseEntity<List<Book>> getAvaliableBooksByTitle(@RequestBody Book book)
     {
@@ -32,7 +32,7 @@ public class BookStatusController
 
         else { return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK); }
     }
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/books/search/")
     public ResponseEntity<List<Book>> getBooksByData(@RequestBody Book book)
     {

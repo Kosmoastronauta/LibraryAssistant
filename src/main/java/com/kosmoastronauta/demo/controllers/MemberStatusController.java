@@ -15,7 +15,7 @@ public class MemberStatusController
     @Autowired
     MemberService memberService;
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/member/{id}/booksToReturn/")
     public ResponseEntity<List<ReservationInfoPerMember>> getNotReturnedBooksByMemberId(@PathVariable long id)
     {
@@ -31,7 +31,7 @@ public class MemberStatusController
                 HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/members/search/")
     public ResponseEntity<List<Member>> getMembersByInput(@RequestBody Member member)
     {

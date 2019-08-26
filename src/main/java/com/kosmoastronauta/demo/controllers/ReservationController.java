@@ -25,7 +25,7 @@ public class ReservationController
     @Autowired
     ReservationService reservationService;
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/reservations/")
     public ResponseEntity<List<Reservation>> getReservations()
     {
@@ -37,7 +37,7 @@ public class ReservationController
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/reservation/{id}/")
     public ResponseEntity<Reservation> getReservationById(@PathVariable long id)
     {
@@ -53,7 +53,7 @@ public class ReservationController
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/reservation/fullInfo/{id}/")
     public ResponseEntity<ReservationFullInfo> getFullInfoAboutReservation(@PathVariable("id") long id)
     {
@@ -69,7 +69,7 @@ public class ReservationController
          return new ResponseEntity<>(reservationFullInfo, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/reservations/makeReservation/{bookId}/{memberId}/")
     public ResponseEntity<Reservation> makeReservation(@PathVariable("bookId") long bookId,
                                                       @PathVariable("memberId") long memberId)
@@ -87,7 +87,7 @@ public class ReservationController
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = {"http://localhost:8282", "http://localhost:8080"})
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
     @GetMapping(path = "/reservation/notReturned/bookId/{bookId}/")
     public ResponseEntity<ReservationInfo> getReservationInfoAboutNotReturnedBookById(@PathVariable("bookId") long bookId)
     {
@@ -102,7 +102,7 @@ public class ReservationController
         return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:8282")
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/reservation/return/byId/{reservationId}/")
     public void returnBook(@PathVariable long reservationId)
     {

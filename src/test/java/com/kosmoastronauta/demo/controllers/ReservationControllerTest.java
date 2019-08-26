@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 @Transactional
 public class ReservationControllerTest
 {
-    public static final String WEB = "http://localhost:8080";
+    public static final String WEB = "http://localhost:4200";
 
     @Test
     public void getAllReservations()
