@@ -1,17 +1,24 @@
 package com.kosmoastronauta.demo.controllers;
 
+import com.kosmoastronauta.demo.DemoApplication;
 import com.kosmoastronauta.demo.domain.Book;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import static io.restassured.RestAssured.given;
 
-@Transactional
+@RunWith(SpringRunner.class)
+
+@ActiveProfiles("test")
 public class BookStatusControllerTest
 {
-    public static final String WEB = "http://localhost:4200";
+    public static final String WEB = "http://localhost:8080";
 
     @Test
     public void OnlyTitleBook()

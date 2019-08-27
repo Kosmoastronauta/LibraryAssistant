@@ -22,7 +22,7 @@ public class BookController
         List<Book> books = bookService.getAllBooks();
         if(books.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
@@ -47,7 +47,7 @@ public class BookController
     {
         book.setFree(true);
         bookService.addBook(book);
-        return new ResponseEntity<Book>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

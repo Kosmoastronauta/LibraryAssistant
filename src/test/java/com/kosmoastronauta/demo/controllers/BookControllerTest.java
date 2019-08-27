@@ -6,13 +6,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import static io.restassured.RestAssured.given;
 import org.json.JSONObject;
-import javax.transaction.Transactional;
+import org.springframework.test.context.ActiveProfiles;
 
-@Transactional
+@ActiveProfiles("test")
 public class BookControllerTest
 {
 
-    public static final String WEB = "http://localhost:4200";
+    public static final String WEB = "http://localhost:8080";
 
     @Test
     public void GetBooksResponseCodeOk()

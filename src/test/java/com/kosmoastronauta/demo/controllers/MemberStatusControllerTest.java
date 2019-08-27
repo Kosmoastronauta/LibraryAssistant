@@ -4,13 +4,13 @@ import com.kosmoastronauta.demo.domain.Member;
 import org.junit.Assert;
 import org.junit.Test;
 import org.apache.http.HttpStatus;
-import javax.transaction.Transactional;
+import org.springframework.test.context.ActiveProfiles;
 import static io.restassured.RestAssured.given;
 
-@Transactional
+@ActiveProfiles("test")
 public class MemberStatusControllerTest
 {
-    public static final String WEB = "http://localhost:4200";
+    public static final String WEB = "http://localhost:8080";
 
     @Test
     public void onlyNameMember()
@@ -46,12 +46,6 @@ public class MemberStatusControllerTest
         member.setId(0);
         //Then
         Assert.assertTrue(MemberStatusController.isEmpty(member));
-    }
-
-    @Test()
-    public void GetStatusExistingMember()
-    {
-        given().when().get(WEB + "/member/16/booksToReturn/").then().assertThat().statusCode(HttpStatus.SC_OK);
     }
 
     @Test()
