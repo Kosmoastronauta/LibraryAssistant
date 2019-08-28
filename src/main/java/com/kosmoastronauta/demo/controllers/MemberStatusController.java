@@ -19,9 +19,10 @@ public class MemberStatusController
     @GetMapping(path = "/member/{id}/booksToReturn/")
     public ResponseEntity<List<ReservationInfoPerMember>> getNotReturnedBooksByMemberId(@PathVariable long id)
     {
+        List<ReservationInfoPerMember> infos;
         try
         {
-            List<ReservationInfoPerMember> infos = memberService.getInfoAboutNotReturnedBooksByMemberId(id);
+            infos = memberService.getInfoAboutNotReturnedBooksByMemberId(id);
         } catch(NullPointerException e)
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
