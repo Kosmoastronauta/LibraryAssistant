@@ -22,7 +22,7 @@ public class MemberController
         List<Member> members = memberService.getAllMembers();
         if(members.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<List<Member>>(members, HttpStatus.OK);
+        return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

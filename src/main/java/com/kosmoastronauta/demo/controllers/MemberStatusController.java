@@ -27,7 +27,7 @@ public class MemberStatusController
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(memberService.getInfoAboutNotReturnedBooksByMemberId(id),
+        return new ResponseEntity<>(infos,
                 HttpStatus.OK);
     }
 
