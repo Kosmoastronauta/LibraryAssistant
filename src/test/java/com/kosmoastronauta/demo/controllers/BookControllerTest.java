@@ -1,6 +1,8 @@
 package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.Book;
+import io.restassured.RestAssured;
+import io.restassured.parsing.Parser;
 import org.apache.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,12 +31,11 @@ public class BookControllerTest
     @Test
     public void addingCheckingIfExistsAndRemovingBook()
     {
-        try
-        {
+        RestAssured.defaultParser = Parser.JSON;
             JSONObject request = new JSONObject();
-            request.put("title", "Temp Book");
-            request.put("author", "Temp author");
-            request.put("edition", "first");
+            request.put("title", "Temp Book2!!!!");
+            request.put("author", "Temp author2!!!!!");
+            request.put("edition", "first2!!!!");
 
             Book book = given().contentType("application/json")
                     .body(request.toString())
@@ -46,7 +47,6 @@ public class BookControllerTest
             given().when().delete(WEB + "/book/" + book.getId() + "/").then().statusCode(HttpStatus.SC_OK);
             Assert.assertTrue(book.isFree());
 
-        } catch(Exception e) {}
     }
 
 }

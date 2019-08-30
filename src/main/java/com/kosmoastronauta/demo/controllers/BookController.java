@@ -41,13 +41,13 @@ public class BookController
         return new ResponseEntity<Book>(book, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+//    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
     @PostMapping(path = "/books/")
     public ResponseEntity<Book> addBook(@RequestBody Book book)
     {
         book.setFree(true);
         bookService.addBook(book);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(book,HttpStatus.OK);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
