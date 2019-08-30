@@ -41,7 +41,7 @@ public class BookController
         return new ResponseEntity<Book>(book, HttpStatus.OK);
     }
 
-//    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/books/")
     public ResponseEntity<Book> addBook(@RequestBody Book book)
     {

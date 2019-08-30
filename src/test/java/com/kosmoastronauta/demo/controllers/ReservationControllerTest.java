@@ -48,7 +48,7 @@ public class ReservationControllerTest
         JSONObject requestBook = new JSONObject();
         requestBook.put("title", "Temp Book");
         requestBook.put("author", "Temp author");
-        requestBook.put("edition", "first");             // !!! It doesnt work
+        requestBook.put("edition", "first");
 
         Book book = given().contentType("application/json")
                 .body(requestBook.toString())
