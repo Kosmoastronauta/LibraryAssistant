@@ -2,6 +2,7 @@ package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.Reservation;
 import com.kosmoastronauta.demo.domain.ReservationFullInfo;
+import com.kosmoastronauta.demo.domain.ReservationInfo;
 import com.kosmoastronauta.demo.services.BookService;
 import com.kosmoastronauta.demo.services.MemberService;
 import com.kosmoastronauta.demo.services.ReservationService;
@@ -24,17 +25,19 @@ public class ReservationController
     @Autowired
     ReservationService reservationService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/reservations/")
     public ResponseEntity<List<Reservation>> getReservations()
     {
         List<Reservation> reservations = reservationService.getAllReservations();
 
         if(!reservations.isEmpty())
-        return new ResponseEntity<List<Reservation>>(reservations, HttpStatus.OK);
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/reservation/{id}/")
     public ResponseEntity<Reservation> getReservationById(@PathVariable long id)
     {
@@ -47,9 +50,10 @@ public class ReservationController
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/reservation/fullInfo/{id}/")
     public ResponseEntity<ReservationFullInfo> getFullInfoAboutReservation(@PathVariable("id") long id)
     {
@@ -62,10 +66,11 @@ public class ReservationController
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-         return new ResponseEntity<ReservationFullInfo>(reservationFullInfo, HttpStatus.OK);
+         return new ResponseEntity<>(reservationFullInfo, HttpStatus.OK);
     }
 
-    @PutMapping(path = "/reservations/makeReservation/{bookId}/{memberId}/")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(path = "/reservations/makeReservation/{bookId}/{memberId}/")
     public ResponseEntity<Reservation> makeReservation(@PathVariable("bookId") long bookId,
                                                       @PathVariable("memberId") long memberId)
     {
@@ -79,9 +84,25 @@ public class ReservationController
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:8080"})
+    @GetMapping(path = "/reservation/notReturned/bookId/{bookId}/")
+    public ResponseEntity<ReservationInfo> getReservationInfoAboutNotReturnedBookById(@PathVariable("bookId") long bookId)
+    {
+        ReservationInfo reservation;
+        try
+        {
+            reservation = reservationService.getNotReturnedReservationByBookId(bookId);
+        }catch(NoSuchElementException e)
+        {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/reservation/return/byId/{reservationId}/")
     public void returnBook(@PathVariable long reservationId)
     {

@@ -5,13 +5,13 @@ import org.apache.http.HttpStatus;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
-import javax.transaction.Transactional;
+import org.springframework.test.context.ActiveProfiles;
 import static io.restassured.RestAssured.given;
 
-@Transactional
+@ActiveProfiles("test")
 public class MemberControllerTest
 {
-    public static final String WEB = "http://localhost:8181";
+    public static final String WEB = "http://localhost:8080";
 
     @Test
     public void GetBookWhichNotExist()
@@ -22,7 +22,7 @@ public class MemberControllerTest
     @Test
     public void GetAllMembersResponseCodeOk()
     {
-        given().when().get(WEB + "/members/").then().statusCode(200);
+        given().when().get(WEB + "/members/").then().statusCode(HttpStatus.SC_NO_CONTENT);
     }
 
     @Test

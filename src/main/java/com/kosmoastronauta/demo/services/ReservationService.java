@@ -1,13 +1,13 @@
 package com.kosmoastronauta.demo.services;
 
-import com.kosmoastronauta.demo.domain.Book;
-import com.kosmoastronauta.demo.domain.Member;
-import com.kosmoastronauta.demo.domain.Reservation;
-import com.kosmoastronauta.demo.domain.ReservationFullInfo;
+import com.kosmoastronauta.demo.domain.*;
 import com.kosmoastronauta.demo.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -62,6 +62,7 @@ public class ReservationService
         else
         {
             book.setFree(false);
+            member.setNumberOfCurrentlyBorrowedBooks(member.getNumberOfCurrentlyBorrowedBooks()+1);
             Reservation reservation = new Reservation(book, member);
             reservationRepository.save(reservation);
 
@@ -91,9 +92,28 @@ public class ReservationService
         long bookId = reservationRepository.getBookIdByReservationId(reservationId);
         Book book = bookService.getBookById(bookId);
         book.setFree(true);
-        bookService.addBook(book);
+
+        long memberId = reservationRepository.getMemberIdByReservationId(reservationId);
+        Member member = memberService.getMemberById(memberId);
+        member.setNumberOfCurrentlyBorrowedBooks(member.getNumberOfCurrentlyBorrowedBooks() -1);
+
         Reservation reservation = reservationRepository.findById(reservationId).get();
         reservation.setReturned(true);
         reservationRepository.save(reservation);
+    }
+
+    public ReservationInfo getNotReturnedReservationByBookId(long id)
+    {
+        List<ReservationInfo> infos = new LinkedList<>();
+        List<Object[]> results = reservationRepository.getNotReturnedReservationByBookId(id);
+        int i = 0;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+
+        for(Object[] result: results)
+        {
+            infos.add(i, new ReservationInfo(Long.valueOf(result[0].toString()), Long.valueOf(result[1].toString()), Long.valueOf(result[2].toString()), LocalDateTime.parse(result[3].toString(), formatter), LocalDateTime.parse(result[4].toString(), formatter)));
+        }
+
+        return infos.get(0);
     }
 }

@@ -3,10 +3,10 @@ package com.kosmoastronauta.demo;
 import com.kosmoastronauta.demo.controllers.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import javax.transaction.Transactional;
+import org.springframework.test.context.ActiveProfiles;
 
 @RunWith(Suite.class)
-@Transactional
+@ActiveProfiles("test")
 @Suite.SuiteClasses({MemberControllerTest.class,
                     BookControllerTest.class,
                     ReservationControllerTest.class,

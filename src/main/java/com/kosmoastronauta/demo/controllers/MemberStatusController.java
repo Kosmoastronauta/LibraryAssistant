@@ -6,31 +6,33 @@ import com.kosmoastronauta.demo.services.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Controller
+@RestController
 public class MemberStatusController
 {
     @Autowired
     MemberService memberService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/member/{id}/booksToReturn/")
     public ResponseEntity<List<ReservationInfoPerMember>> getNotReturnedBooksByMemberId(@PathVariable long id)
     {
+        List<ReservationInfoPerMember> infos;
         try
         {
-            List<ReservationInfoPerMember> infos = memberService.getInfoAboutNotReturnedBooksByMemberId(id);
+            infos = memberService.getInfoAboutNotReturnedBooksByMemberId(id);
         } catch(NullPointerException e)
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-        return new ResponseEntity<>(memberService.getInfoAboutNotReturnedBooksByMemberId(id),
+        return new ResponseEntity<>(infos,
                 HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/members/search/")
     public ResponseEntity<List<Member>> getMembersByInput(@RequestBody Member member)
     {
@@ -45,12 +47,12 @@ public class MemberStatusController
 
     protected static boolean isOnlyName(Member member)
     {
-        return member.getName() != null && member.getLastName() == null;
+        return member.getName() != null && (member.getLastName() == null || member.getLastName().equals(""));
     }
 
     protected static boolean isOnlyLastName(Member member)
     {
-        return member.getLastName() != null && member.getName() == null;
+        return member.getLastName() != null && (member.getName() == null || member.getName().equals(""));
     }
 
     protected static boolean isEmpty(Member member)

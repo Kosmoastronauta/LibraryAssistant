@@ -1,29 +1,21 @@
 package com.kosmoastronauta.demo.controllers;
 
 import com.kosmoastronauta.demo.domain.Book;
+import com.kosmoastronauta.demo.domain.Member;
 import com.kosmoastronauta.demo.domain.Reservation;
+import io.restassured.RestAssured;
+import io.restassured.parsing.Parser;
 import org.apache.http.HttpStatus;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
-import javax.transaction.Transactional;
+import org.springframework.test.context.ActiveProfiles;
 import static io.restassured.RestAssured.given;
 
-@Transactional
+@ActiveProfiles("test")
 public class ReservationControllerTest
 {
-    public static final String WEB = "http://localhost:8181";
-
-    @Test
-    public void getAllReservations()
-    {
-        given().when().get(WEB + "/reservations/").then().statusCode(HttpStatus.SC_OK);
-    }
-
-    @Test
-    public void getReservationByIdExistingReservation()
-    {
-        given().when().get(WEB + "/reservation/37/").then().assertThat().statusCode(HttpStatus.SC_OK);
-    }
+    public static final String WEB = "http://localhost:8080";
 
     @Test
     public void getReservationByIdNotExistingReservation()
@@ -38,22 +30,41 @@ public class ReservationControllerTest
     }
 
     @Test
-    public void getFullInfoAboutExistingReservation()
-    {
-        given().when().get(WEB + "/reservation/fullInfo/37/").then().assertThat().statusCode(HttpStatus.SC_OK);
-    }
-
-    @Test
     public void makingReservationAndReturning()
     {
+        RestAssured.defaultParser = Parser.JSON;
+
+        JSONObject requestMember = new JSONObject();
+        requestMember.put("name", "Temp Member");
+        requestMember.put("lastName", "Temp LastName");
+        requestMember.put("email", "temp email");
+
+        Member member = given().contentType("application/json")
+                .body(requestMember.toString())
+                .when().post(WEB + "/members/")
+                .then().statusCode(HttpStatus.SC_OK)
+                .extract().as(Member.class);
+
+        JSONObject requestBook = new JSONObject();
+        requestBook.put("title", "Temp Book");
+        requestBook.put("author", "Temp author");
+        requestBook.put("edition", "first");
+
+        Book book = given().contentType("application/json")
+                .body(requestBook.toString())
+                .when().post(WEB + "/books/")
+                .then().statusCode(HttpStatus.SC_OK)
+                .extract().as(Book.class);
+
         Reservation reservation = given().contentType("/application/json")
-                .when().put(WEB + "/reservations" + "/makeReservation/2/16/")
+                .when().post(WEB + "/reservations" + "/makeReservation/"+ book.getId()+"/"+ member.getId()+"/")
                 .then().statusCode(HttpStatus.SC_OK)
                 .extract().as(Reservation.class);
+
         long bookId = reservation.getBookId();
         long reservationId = reservation.getId();
 
-        Book book = given().contentType("application/json")
+        book = given().contentType("application/json")
                 .when().get(WEB + "/book/" + bookId + "/")
                 .then().statusCode(HttpStatus.SC_OK)
                 .extract().as(Book.class);
@@ -74,5 +85,8 @@ public class ReservationControllerTest
 
                 .extract().as(Reservation.class);
         Assert.assertTrue(reservation.isReturned()); // checking status isReturned in table reservation
+
+        given().when().get(WEB + "/reservation/fullInfo/"+reservation.getId()+"/").then().assertThat().statusCode(HttpStatus.SC_OK);
+        given().when().get(WEB + "/reservations/").then().statusCode(HttpStatus.SC_OK);
     }
 }

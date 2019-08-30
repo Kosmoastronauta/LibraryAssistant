@@ -1,14 +1,11 @@
 package com.kosmoastronauta.demo.services;
 
-import com.google.common.collect.Lists;
 import com.kosmoastronauta.demo.domain.Book;
 import com.kosmoastronauta.demo.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BookService
@@ -62,6 +59,22 @@ public class BookService
     public void deleteBookById(long id)
     {
         bookRepository.deleteById(id);
+    }
+
+    public List<Book> getBooksByTitle(Book book)
+    {
+        System.out.println(book.getTitle());
+        return bookRepository.getBooksByTitleLike(book.getTitle());
+    }
+
+    public List<Book> getBooksByAuthor(Book book)
+    {
+        return bookRepository.getBooksByAuthorLike(book.getAuthor());
+    }
+
+    public List<Book> getBooksByTitleAndAuthor(Book book)
+    {
+        return bookRepository.getBooksByTitleIsLikeAndAndAuthorIsLike(book.getTitle(), book.getAuthor());
     }
 
 }

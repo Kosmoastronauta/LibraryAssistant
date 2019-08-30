@@ -15,19 +15,21 @@ public class BookController
     @Autowired
     BookService bookService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/books/")
     public ResponseEntity<List<Book>> getBooks()
     {
         List<Book> books = bookService.getAllBooks();
         if(books.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/book/{id}/")
     public ResponseEntity<Book> getBookById(@PathVariable int id)
     {
-        Book book = new Book();
+        Book book;
         try
         {
             book = bookService.getBookById(id);
@@ -39,14 +41,16 @@ public class BookController
         return new ResponseEntity<Book>(book, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/books/")
     public ResponseEntity<Book> addBook(@RequestBody Book book)
     {
         book.setFree(true);
         bookService.addBook(book);
-        return new ResponseEntity<Book>(HttpStatus.OK);
+        return new ResponseEntity<>(book,HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(path = "/book/{id}/")
     public void deleteBook(@PathVariable int id)
     {

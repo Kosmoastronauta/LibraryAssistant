@@ -54,4 +54,17 @@ public interface MemberRepository extends CrudRepository<Member, Long>
                     "= false")
     public List<Object[]> getInfoAboutNotReturnedBooksForMemberById(@Param("memberId") long memberId);
 
+    @Query(value = "SELECT * FROM member WHERE member.name LIKE CONCAT ('%', :name, '%') AND member.lastName LIKE " +
+            "CONCAT" +
+            " " +
+            "('%', :lastName, '%')" , nativeQuery = true)
+    public List<Member> getMembersByNameIsLikeAndAndLastNameIsLike(@Param("name") String name,
+                                                              @Param("lastName") String lastName);
+
+    @Query(value = "SELECT * FROM member WHERE member.name LIKE CONCAT ('%', :name, '%')", nativeQuery = true)
+    public List<Member> getMembersByNameLike(@Param("name") String name);
+
+    @Query(value = "SELECT * FROM member WHERE member.last_name LIKE CONCAT ('%', :lastName, '%')", nativeQuery = true)
+    public List<Member> getMembersByLastNameLike(@Param("lastName") String lastName);
+
 }

@@ -15,15 +15,17 @@ public class MemberController
     @Autowired
     MemberService memberService;
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/members/")
     public ResponseEntity<List<Member>> getMembers()
     {
         List<Member> members = memberService.getAllMembers();
         if(members.isEmpty()) return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-        return new ResponseEntity<List<Member>>(members, HttpStatus.OK);
+        return new ResponseEntity<>(members, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/member/{id}/")
     public ResponseEntity<Member> getMemberById(@PathVariable long id)
     {
@@ -36,17 +38,19 @@ public class MemberController
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<Member>(member, HttpStatus.OK);
+        return new ResponseEntity<>(member, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = {"http://localhost:4200", "http://192.168.8.104:4200"})
     @PostMapping(path = "/members/")
     public ResponseEntity<Member> addMember(@RequestBody Member member)
     {
         member.setNumberOfCurrentlyBorrowedBooks(0);
         memberService.addMember(member);
-        return new ResponseEntity<Member>(member, HttpStatus.OK);
+        return new ResponseEntity<>(member, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @DeleteMapping(path = "/member/{id}/")
     public void deleteMember(@PathVariable int id) {memberService.deleteMemberById(id);}
 }
