@@ -77,7 +77,8 @@ public class MemberControllerTest
             request.put("lastName", "Temp LastName");
             request.put("email", "temp123edwac");
 
-            Member member = given().contentType("application/json").body(request.toString()).when().post(WEB + "/members/").then().statusCode(HttpStatus.SC_OK).extract().as(Member.class);
+            Member member = given().contentType("application/json").body(request.toString()).when().post(WEB +
+                    "/members/").then().statusCode(HttpStatus.SC_BAD_REQUEST).extract().as(Member.class);
 
             given().when().get(WEB + "/member/" + member.getId() + "/").then().statusCode(200);
             given().when().delete(WEB + "/member/" + member.getId() + "/").then().statusCode(200);

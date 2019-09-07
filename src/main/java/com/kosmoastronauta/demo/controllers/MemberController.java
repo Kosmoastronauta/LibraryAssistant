@@ -47,7 +47,8 @@ public class MemberController
     @PostMapping(path = "/members/")
     public ResponseEntity<Member> addMember(@RequestBody Member member)
     {
-        try{
+        try
+        {
             member.setNumberOfCurrentlyBorrowedBooks(0);
             memberService.addMember(member);
             return new ResponseEntity<>(member, HttpStatus.OK);
