@@ -43,7 +43,7 @@ public class MemberController
 
     }
 
-    @CrossOrigin(origins = {"http://localhost:4200", "http://192.168.8.104:4200"})
+    @CrossOrigin(origins = {"http://localhost:4200"})
     @PostMapping(path = "/members/")
     public ResponseEntity<Member> addMember(@RequestBody Member member)
     {
