@@ -10,7 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
-
 import static io.restassured.RestAssured.given;
 
 @ActiveProfiles("test")
