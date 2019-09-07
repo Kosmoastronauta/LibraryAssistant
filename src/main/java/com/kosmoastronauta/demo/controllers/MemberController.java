@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -45,9 +47,15 @@ public class MemberController
     @PostMapping(path = "/members/")
     public ResponseEntity<Member> addMember(@RequestBody Member member)
     {
-        member.setNumberOfCurrentlyBorrowedBooks(0);
-        memberService.addMember(member);
-        return new ResponseEntity<>(member, HttpStatus.OK);
+        try{
+            member.setNumberOfCurrentlyBorrowedBooks(0);
+            memberService.addMember(member);
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }catch(InvalidParameterException e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

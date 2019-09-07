@@ -5,6 +5,8 @@ import com.kosmoastronauta.demo.domain.ReservationInfoPerMember;
 import com.kosmoastronauta.demo.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.security.InvalidParameterException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -43,7 +45,12 @@ public class MemberService
         else throw new NullPointerException("There is no member with this id");
     }
 
-    public void addMember(Member member) { memberRepository.save(member);}
+    public void addMember(Member member)
+    {
+        if(emailValidation(member.getEmail()))
+        memberRepository.save(member);
+        else throw new InvalidParameterException("Invalid email address");
+    }
 
     public void deleteMemberById(long id) { memberRepository.deleteById(id); }
 
@@ -77,7 +84,13 @@ public class MemberService
 
     public List<Member> getMembersByNameAndLastName(Member member)
     {
-        return memberRepository.getMembersByNameIsLikeAndAndLastNameIsLike(member.getName(),member.getLastName());
+        return memberRepository.getMembersByNameIsLikeAndAndLastNameIsLike(member.getName(), member.getLastName());
+    }
+
+    private static boolean emailValidation(String email)
+    {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
     }
 
 }
