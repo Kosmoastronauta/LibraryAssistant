@@ -1,13 +1,11 @@
 package com.kosmoastronauta.demo.domain;
 
-import com.kosmoastronauta.demo.services.MemberService;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Member extends MemberService
+public class Member
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
