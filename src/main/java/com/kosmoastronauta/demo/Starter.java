@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Scope("singleton")
 public class Starter implements CommandLineRunner
 {
-    @Autowired
-    BookRepository bookRepository;
 
     public void run(String... args)
     {

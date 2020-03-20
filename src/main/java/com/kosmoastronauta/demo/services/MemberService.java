@@ -15,8 +15,13 @@ import java.util.List;
 @Service
 public class MemberService
 {
+    private MemberRepository memberRepository;
+
     @Autowired
-    MemberRepository memberRepository;
+    public MemberService(MemberRepository memberRepository)
+    {
+        this.memberRepository=memberRepository;
+    }
 
     public MemberRepository getMemberRepository()
     {

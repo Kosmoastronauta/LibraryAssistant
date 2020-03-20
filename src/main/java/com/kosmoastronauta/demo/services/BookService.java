@@ -10,17 +10,14 @@ import java.util.List;
 @Service
 public class BookService
 {
+    private BookRepository bookRepository;
+
     @Autowired
-    BookRepository bookRepository;
+    public BookService(BookRepository bookRepository) {this.bookRepository = bookRepository;}
 
     public BookRepository getBookRepository()
     {
         return bookRepository;
-    }
-
-    public void setBookRepository(BookRepository bookRepository)
-    {
-        this.bookRepository = bookRepository;
     }
 
     public void addBook(Book book)
@@ -36,17 +33,17 @@ public class BookService
         return books;
     }
 
-    public List<Book> getAvaliableBooksOnlyByTitle(Book book)
+    public List<Book> getAvailableBooksOnlyByTitle(Book book)
     {
         return bookRepository.getBooksByFreeIsTrueAndTitleEquals(book.getTitle());
     }
 
-    public List<Book> getAvaliableBooksOnlyByAuthor(Book book)
+    public List<Book> getAvailableBooksOnlyByAuthor(Book book)
     {
         return bookRepository.getBooksByFreeIsTrueAndAuthorEquals(book.getAuthor());
     }
 
-    public List<Book> getAvaliableBooksByTitleAndAuthor(Book book)
+    public List<Book> getAvailableBooksByTitleAndAuthor(Book book)
     {
         return bookRepository.getBooksByFreeIsTrueAndTitleEqualsAndAuthorEquals(book.getTitle(),book.getAuthor());
     }

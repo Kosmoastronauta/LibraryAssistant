@@ -16,14 +16,17 @@ import java.util.NoSuchElementException;
 @RestController
 public class ReservationController
 {
-    @Autowired
-    MemberService memberService;
+   private MemberService memberService;
+   private BookService bookService;
+   private ReservationService reservationService;
 
-    @Autowired
-    BookService bookService;
-
-    @Autowired
-    ReservationService reservationService;
+   @Autowired
+    public ReservationController(MemberService memberService, BookService bookService, ReservationService reservationService)
+    {
+        this.memberService = memberService;
+        this.bookService = bookService;
+        this.reservationService = reservationService;
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/reservations/")

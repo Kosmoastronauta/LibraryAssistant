@@ -14,22 +14,24 @@ import java.util.List;
 @RestController
 public class BookStatusController
 {
+    private final BookService bookService;
+
     @Autowired
-    BookService bookService;
+    public BookStatusController(BookService bookService) {this.bookService = bookService;}
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping(path = "/books/avaliable/")
-    public ResponseEntity<List<Book>> getAvaliableBooksByTitle(@RequestBody Book book)
+    @PostMapping(path = "/books/available/")
+    public ResponseEntity<List<Book>> getAvailableBooksByTitle(@RequestBody Book book)
     {
         if(isEmpty(book)) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         if(isOnlyAuthor(book))
-        { return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByAuthor(book), HttpStatus.OK); }
+        { return new ResponseEntity<>(bookService.getAvailableBooksOnlyByAuthor(book), HttpStatus.OK); }
 
         if(isOnlyTitle(book))
-        { return new ResponseEntity<>(bookService.getAvaliableBooksOnlyByTitle(book), HttpStatus.OK); }
+        { return new ResponseEntity<>(bookService.getAvailableBooksOnlyByTitle(book), HttpStatus.OK); }
 
-        else { return new ResponseEntity<>(bookService.getAvaliableBooksByTitleAndAuthor(book), HttpStatus.OK); }
+        else { return new ResponseEntity<>(bookService.getAvailableBooksByTitleAndAuthor(book), HttpStatus.OK); }
     }
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(path = "/books/search/")

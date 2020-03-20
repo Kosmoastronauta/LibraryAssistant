@@ -13,8 +13,13 @@ import java.util.NoSuchElementException;
 @RestController
 public class MemberController
 {
+    private MemberService memberService;
+
     @Autowired
-    MemberService memberService;
+    public MemberController(MemberService memberService)
+    {
+        this.memberService=memberService;
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/members/")
