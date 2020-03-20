@@ -12,8 +12,11 @@ import java.util.List;
 @RestController
 public class MemberStatusController
 {
+    private final MemberService memberService;
+
     @Autowired
-    MemberService memberService;
+    public MemberStatusController(MemberService memberService) {this.memberService = memberService;}
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/member/{id}/booksToReturn/")

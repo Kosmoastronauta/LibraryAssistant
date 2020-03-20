@@ -70,3 +70,7 @@ fabric.properties
 /.idea/codeStyles/
 /SeleniumLA/
 /.idea/dataSources.xml
+/.idea/
+/target/
+target/generated-sources/
+target/generated-test-sources/

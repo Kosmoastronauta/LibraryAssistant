@@ -6,14 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.security.InvalidParameterException;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
 public class MemberController
 {
+    private MemberService memberService;
+
     @Autowired
-    MemberService memberService;
+    public MemberController(MemberService memberService)
+    {
+        this.memberService=memberService;
+    }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping(path = "/members/")
@@ -29,25 +35,33 @@ public class MemberController
     @GetMapping(path = "/member/{id}/")
     public ResponseEntity<Member> getMemberById(@PathVariable long id)
     {
-        Member member = new Member();
+        Member member;
 
         try
         {
             member = memberService.getMemberById(id);
+            return new ResponseEntity<>(member, HttpStatus.OK);
         } catch(NoSuchElementException e)
         {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(member, HttpStatus.OK);
+
     }
 
-    @CrossOrigin(origins = {"http://localhost:4200", "http://192.168.8.104:4200"})
+    @CrossOrigin(origins = {"http://localhost:4200"})
     @PostMapping(path = "/members/")
     public ResponseEntity<Member> addMember(@RequestBody Member member)
     {
-        member.setNumberOfCurrentlyBorrowedBooks(0);
-        memberService.addMember(member);
-        return new ResponseEntity<>(member, HttpStatus.OK);
+        try
+        {
+            member.setNumberOfCurrentlyBorrowedBooks(0);
+            memberService.addMember(member);
+            return new ResponseEntity<>(member, HttpStatus.OK);
+        }catch(InvalidParameterException e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

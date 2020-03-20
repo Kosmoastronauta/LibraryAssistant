@@ -12,7 +12,10 @@
  - showing      the        history of  the book
  - searching members/books
  - and many others     to simplify working with  this api 
+
+=======
 ## Language: Java11
+
 
 ## Frameworks
 
@@ -49,3 +52,4 @@ Sending **POST** on "localhost:8080/members/" with file as below will create new
 - services (logic)
 - respositories (integration with database)
 - domain (basic entity classes: book, member, reservation)
+
